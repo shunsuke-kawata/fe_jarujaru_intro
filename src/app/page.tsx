@@ -1,10 +1,10 @@
 import Image from "next/image";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
-      <div>aadddkodddkopssddaffsssf</div>
-      <div>ddkgorakfopkjaowj-9issdd</div>
+      <div>addddpakokfpoafpoda</div>
     </>
   );
-}
+};
+export default Home;
