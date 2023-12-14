@@ -1,9 +1,11 @@
-import Image from "next/image";
-
+//ルーティングの基準となるpage.tsx
 const Home = () => {
+  console.log(process.env.TEST);
   return (
     <>
-      <div>addddpakokfpoafpoda</div>
+      <div>
+        <p>{process.env.TEST}</p>
+      </div>
     </>
   );
 };
