@@ -1,5 +1,5 @@
-export type QuestionInfo = {
-    id:string,
-    title:string,
-    originalFilePath:string
+export type QuestionInfoResponse = {
+  id: string;
+  title: string;
+  originalFilePath: string;
 };
