@@ -1,5 +1,5 @@
 "use client";
-import { getQuestionData } from "@/api/api";
+import { getQuestionData, getQuestionAudio } from "@/api/api";
 
 const Test = () => {
   return (
@@ -15,6 +15,11 @@ const Test = () => {
           ])
         }
       />
+      <input
+        type="button"
+        value="問題のfetch"
+        onClick={() => getQuestionAudio("irMf9PfJtXE")}
+      ></input>
     </>
   );
 };
