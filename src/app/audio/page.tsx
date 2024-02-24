@@ -3,15 +3,11 @@ import { getQuestionAudio } from "@/api/api";
 import React, { useState, useEffect, useRef } from "react";
 
 const Audio = () => {
-  // const AudioContext = window.AudioContext || window.webkitAudioContext;
-  const [audioData, setAudioData] = useState<ArrayBuffer | null>(null);
-  const [isPlaying, setIsPlaying] = useState<Boolean>(false);
-  const [audioPlayer, setAudioPlayer] = useState<HTMLAudioElement | null>(null);
-
   //audioContextの作成
   var audioContext: AudioContext;
   let audioSource: AudioBufferSourceNode | null;
 
+  //useeffectでcontextの初期化
   useEffect(() => {
     audioContext = new AudioContext();
   }, []);
