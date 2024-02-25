@@ -7,7 +7,6 @@ const getQuestionData = async (params: string[]) => {
   let url: string = `${BACKEND_SERVER_URL}/question/download/?playlist_id=${queryParameters}`;
   try {
     const response: AxiosResponse<JSON> = await axios.get(url);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching playlist items:", error);

@@ -1,79 +1,100 @@
 "use client";
-import { getQuestionAudio } from "@/api/api";
 import React, { useState, useEffect, useRef } from "react";
+import { getQuestionData, getQuestionAudio } from "@/api/api";
 
 const Audio = () => {
-  //audioContextの作成
-  var audioContext: AudioContext;
-  let audioSource: AudioBufferSourceNode | null;
+  const [isDisabled, setIsDisabled] = useState<boolean>(true); // 初期値はfalse
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
 
-  //useeffectでcontextの初期化
   useEffect(() => {
-    audioContext = new AudioContext();
+    console.log("init audioContext");
+    audioContextRef.current = new AudioContext();
   }, []);
 
-  const handleFetchData = async (id: string) => {
-    console.log(id);
+  const handleFetchData = async () => {
+    if (!audioContextRef.current) return;
+
     try {
-      const data = await getQuestionAudio(id);
-      //decode
-      audioContext.decodeAudioData(data, (buffer) => {
-        //デコードが完了したら実行されるコールバック関数
-        audioSource = audioContext.createBufferSource();
-        audioSource.buffer = buffer;
+      const questionData: any = await getQuestionData([
+        "PLRdiaanKAFQl3AKF2ruBbuTKj0dZnVqaJ",
+        "PLRdiaanKAFQlq6BMs519ix5km2nz49zMb",
+      ]);
 
-        //オーディオ要素に接続
-        audioSource.connect(audioContext.destination);
+      const audioData = await getQuestionAudio(questionData.id);
+      console.log(questionData);
+
+      audioContextRef.current.decodeAudioData(audioData, (buffer) => {
+        audioSourceRef.current = audioContextRef.current!.createBufferSource();
+        audioSourceRef.current.buffer = buffer;
+        audioSourceRef.current.connect(audioContextRef.current!.destination);
         console.log("fetched");
-
-        // 音楽を再生
-        // handlePlay();
       });
+      setIsDisabled(false);
     } catch (error) {
       console.error("Failed to fetch MP3 data:", error);
     }
   };
+
   const handlePlay = () => {
-    // 音楽を再生
-    if (audioSource) {
+    if (audioSourceRef.current && audioContextRef.current) {
       console.log("start");
-      audioSource.start(0);
+      audioSourceRef.current.start(0);
     }
   };
 
   const handlePause = () => {
-    if (audioContext.state === "running") {
-      audioContext.suspend();
+    if (audioContextRef.current?.state === "running") {
+      audioContextRef.current.suspend();
       console.log("suspended");
     }
   };
+
   const handleRestart = () => {
-    if (audioContext.state === "suspended") {
-      audioContext.resume();
+    if (audioContextRef.current?.state === "suspended") {
+      audioContextRef.current.resume();
       console.log("restart");
     }
   };
 
   const handleStop = () => {
-    if (audioSource) {
-      audioSource.stop();
-      audioSource = null; // 一度停止した後は再度startできないのでnullにする
+    if (audioSourceRef.current && audioContextRef.current) {
+      audioSourceRef.current.stop();
+      audioSourceRef.current.disconnect();
+      audioSourceRef.current = null;
       console.log("broken context");
+      setIsDisabled(true);
     }
   };
 
   return (
     <>
       <div>オーディオ再生テスト</div>
+      <input type="button" value="fetch" onClick={handleFetchData} />
       <input
         type="button"
-        value="fetch"
-        onClick={() => handleFetchData("irMf9PfJtXE")}
+        value="再生"
+        onClick={handlePlay}
+        disabled={isDisabled}
       />
-      <input type="button" value="再生" onClick={() => handlePlay()} />
-      <input type="button" value="一時停止" onClick={() => handlePause()} />
-      <input type="button" value="再開" onClick={() => handleRestart()} />
-      <input type="button" value="停止" onClick={() => handleStop()} />
+      <input
+        type="button"
+        value="一時停止"
+        onClick={handlePause}
+        disabled={isDisabled}
+      />
+      <input
+        type="button"
+        value="再開"
+        onClick={handleRestart}
+        disabled={isDisabled}
+      />
+      <input
+        type="button"
+        value="停止"
+        onClick={handleStop}
+        disabled={isDisabled}
+      />
     </>
   );
 };
