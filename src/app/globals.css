@@ -1,0 +1,10 @@
+body {
+    background-color: #84ddea;
+    margin: 0;
+  }
+
+/* 画面上部の余白を消す */
+*{
+    margin-top: 0px;
+    padding: 0px;
+}

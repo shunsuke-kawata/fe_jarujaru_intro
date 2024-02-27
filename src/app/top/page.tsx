@@ -1,10 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
+import Header from "@/components/header";
 const Top = () => {
   const router = useRouter();
   return (
     <>
-      <h1>ジャルジャルでイントロクイズする奴</h1>
+      <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
       <input
         type="button"
         value="プレイ"

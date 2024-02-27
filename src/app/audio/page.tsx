@@ -13,6 +13,10 @@ const Audio = () => {
   }, []);
 
   const handleFetchData = async () => {
+    //contextファイルの更新
+
+    console.log("fetchの開始");
+    audioContextRef.current = new AudioContext();
     if (!audioContextRef.current) return;
 
     try {

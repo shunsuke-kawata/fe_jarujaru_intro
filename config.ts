@@ -1,3 +1,4 @@
+import { VideoInfo } from "@/types/configType";
 const FRONTEND_SERVER_URL: string = "http://localhost:3000";
 const BACKEND_SERVER_URL: string = "http://localhost:8000";
 
@@ -5,13 +6,38 @@ const JARUJARU_TOWER_CHANNEL_ID: string = "UChwgNUWPM-ksOP3BbfQHS5Q";
 const JARUJARU_ISLAND_CHANNEL_ID: string = "UCf-wG6PlxW7rpixx1tmODJw";
 
 // 更新を行う必要がある
-const JARUJARU_TOWER_PLAYLISTS: {
-  id: string;
-  title: string;
-}[] = [
+const JARUJARU_TOWER_PLAYLISTS: VideoInfo[] = [
   {
     id: "PLRdiaanKAFQlJKPO75in2WNF0wKJyo4qe",
     title: "本気ネタ",
+  },
+  {
+    id: "PLRdiaanKAFQl5ERDgJHx2ZRKCcIl-I8fz",
+    title: "１０８本！煩悩ネタ！",
+  },
+  {
+    id: "PLRdiaanKAFQl3AKF2ruBbuTKj0dZnVqaJ",
+    title: "１億回記念！本気ネタ！",
+  },
+  {
+    id: "PLRdiaanKAFQlq6BMs519ix5km2nz49zMb",
+    title: "2億回記念!本気ネタ!",
+  },
+  {
+    id: "PLRdiaanKAFQnFRkJiuhMVLAC-UdYjYk8k",
+    title: "３億回記念！本気ネタ！",
+  },
+  {
+    id: "PLRdiaanKAFQlWix5IgBtgxEY91fWNA4Fn",
+    title: "５億回記念！本気ネタ！",
+  },
+  {
+    id: "PLRdiaanKAFQlHOVLx1AHe2vIpjlakfkAN",
+    title: "ジャルジャルコント",
+  },
+  {
+    id: "PLRdiaanKAFQk30MsMqvwPyASD9tqKUInG",
+    title: "リモートネタ生配信",
   },
   {
     id: "PLRdiaanKAFQn3LjggPAIk7x2U9Ih2bwRk",
@@ -30,49 +56,21 @@ const JARUJARU_TOWER_PLAYLISTS: {
     title: "学校の先生な奴ら",
   },
   {
-    id: "PLRdiaanKAFQlWix5IgBtgxEY91fWNA4Fn",
-    title: "５億回記念！本気ネタ！",
-  },
-  {
     id: "PLRdiaanKAFQmfcVpdsVLoQUpdtSNojOKK",
-    title: "【作業用ネタ】耳でジャルジャルを楽しむ奴",
+    title: "耳でジャルジャルを楽しむ奴",
   },
   {
     id: "PLRdiaanKAFQmsC6fP_St6EgaSMeOMDGOS",
-    title: "【入門編】ジャルジャルに興味湧いてきた奴",
-  },
-  {
-    id: "PLRdiaanKAFQk30MsMqvwPyASD9tqKUInG",
-    title: "リモートネタ生配信",
-  },
-  {
-    id: "PLRdiaanKAFQl5ERDgJHx2ZRKCcIl-I8fz",
-    title: "１０８本！煩悩ネタ！",
-  },
-  {
-    id: "PLRdiaanKAFQnFRkJiuhMVLAC-UdYjYk8k",
-    title: "３億回記念！本気ネタ！",
-  },
-  {
-    id: "PLRdiaanKAFQlq6BMs519ix5km2nz49zMb",
-    title: "2億回記念!本気ネタ!",
-  },
-  {
-    id: "PLRdiaanKAFQl3AKF2ruBbuTKj0dZnVqaJ",
-    title: "１億回記念！本気ネタ！",
+    title: "ジャルジャルに興味湧いてきた奴",
   },
   {
     id: "PLRdiaanKAFQliJh8AMvlV6t7NBrmNXCo-",
     title: "JARUJARUTOWER",
   },
-  {
-    id: "PLRdiaanKAFQlHOVLx1AHe2vIpjlakfkAN",
-    title: "ジャルジャルコント",
-  },
 ];
 
 // 更新を行う必要がある
-const JARUJARU_ISLAND_PLAYLISTS: { id: string; title: string }[] = [
+const JARUJARU_ISLAND_PLAYLISTS: VideoInfo[] = [
   {
     id: "PL52aY2wM99ilIbNCybsQ41s8zUxnRG7xC",
     title: "バリアフリー字幕ついてる奴",

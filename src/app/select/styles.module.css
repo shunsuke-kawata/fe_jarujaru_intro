@@ -1,0 +1,39 @@
+.titleButton, .selectedTitleButton {
+    width: 260px;
+    line-height: 60px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 20px;
+    border-radius: 50px;
+    font-size: 16px;
+}
+
+.titleButton {
+    background-color: #eedcb3;
+    color: #000000;
+}
+
+.selectedTitleButton {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.notLeftButton{
+    margin-left: 20px;
+}
+
+.selectTitleList{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subtitles{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.questionNumberInput{
+    font-size: 24px;
+}
