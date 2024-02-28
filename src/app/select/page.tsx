@@ -24,11 +24,16 @@ const Select = () => {
   };
 
   const handleToQuizButton = () => {
-    console.log(questionNumber);
-    console.log(selectedPlaylistId);
+    //選択された問題がない・questionNumberが
+    if (selectedPlaylistId.length === 0 || questionNumber === undefined) {
+      return;
+    }
+    let queryParameterId: string = selectedPlaylistId.join("&playlistId=");
 
+    //問題数とプレイリストのidをクエリパラメータで渡す
+    const url = `/question?questionNumber=${questionNumber}&playlistId=${queryParameterId}`;
     //クイズ画面に遷移
-    router.push(`/question/${questionNumber}`);
+    router.push(url);
   };
 
   //選択されているプレイリストを更新する
@@ -58,7 +63,7 @@ const Select = () => {
         <div
           className={`${
             selected ? styles.selectedTitleButton : styles.titleButton
-          } ${index % 4 !== 0 ? styles.notLeftButton : ""}`}
+          } ${index % 4 !== 3 ? styles.notRightButton : ""}`}
           // {selected ? styles.selectedTitleButton : styles.titleButton}
           onClick={() => updateSelectPlaylistId(id)}
         >

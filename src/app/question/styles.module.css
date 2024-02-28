@@ -1,0 +1,70 @@
+.secondTitle{
+    text-align: center;
+    width:60%;
+    font-size: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.startButtonDiv{
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    left: 0;
+    right: 0;
+    bottom :120px;
+    margin:  auto;
+}
+.isFetching{
+    background-color: #a9a9a9;
+}
+.isWaiting{
+    background-color: #34d01c;
+}
+
+.isStarted{
+    background-color: #ff0000;
+}
+.phoneButton{
+    margin: auto;
+    width:60%;
+    height:60%;
+}
+
+.phoneDisplayDiv{
+    position: relative;
+    width:280px;
+    height: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #080c44;
+    border-radius: 25px;
+    border: 2px solid #fff;
+}
+
+.phoneSentence{
+    padding-top: 120px;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.answerTitleInput{
+    position: absolute;
+    top:85%;
+    left:-30%;
+    width:160%;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.nextQuestionButton{
+    width:fit-content;
+    /* あとで変える */
+    margin-left:80%;
+}
