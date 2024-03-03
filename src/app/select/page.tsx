@@ -8,11 +8,13 @@ import {
 import { VideoInfo } from "@/types/configType";
 import React from "react";
 import Header from "@/components/header";
+import ErrorWindow from "@/components/errorWindow";
 import { useRouter } from "next/navigation";
 
 const Select = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
   const [questionNumber, setQuestionNumber] = useState<number>(10);
+  const [isShowError, setIsShowError] = useState(false);
 
   const router = useRouter();
 
@@ -26,6 +28,7 @@ const Select = () => {
   const handleToQuizButton = () => {
     //選択された問題がない・questionNumberが
     if (selectedPlaylistId.length === 0 || questionNumber === undefined) {
+      setIsShowError(true);
       return;
     }
     let queryParameterId: string = selectedPlaylistId.join("&playlistId=");
@@ -120,6 +123,16 @@ const Select = () => {
       <TitleButtonList videoInfoList={JARUJARU_TOWER_PLAYLISTS} />
       <h3 className={styles.subtitles}>JARUJARU ISLAND</h3>
       <TitleButtonList videoInfoList={JARUJARU_ISLAND_PLAYLISTS} />
+      {isShowError ? (
+        <ErrorWindow
+          errorMessage={
+            "問題を選択してくださいaaaaaaaaaaaaaaaaaaaaaaaaaaasdgresmdfkgeopfdoijop"
+          }
+          stateFunction={setIsShowError}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 };

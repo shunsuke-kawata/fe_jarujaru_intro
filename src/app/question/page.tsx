@@ -16,8 +16,6 @@ const Question = () => {
   //現在の問題数
   const [questionIndex, setQuestionIndex] = useState<number>(1);
 
-  const [playlistIds, setPlaylistIds] = useState<string[]>(playlistIdParam);
-
   useEffect(() => {
     //contextの初期化・生成
     handleFetchData();
@@ -48,17 +46,14 @@ const Question = () => {
   const handleFetchData = async () => {
     //contextファイルの更新
     console.log("downloadの開始");
-    console.log(playlistIds);
     audioContextRef.current = new AudioContext();
     if (!audioContextRef.current) return;
 
     try {
       setAudioStatus(0);
-      const questionData: any = await getQuestionData(playlistIds);
-
-      const audioData = await getQuestionAudio(questionData.id);
+      const questionData: any = await getQuestionData(playlistIdParam);
       console.log(questionData);
-
+      const audioData = await getQuestionAudio(questionData.id);
       audioContextRef.current.decodeAudioData(audioData, (buffer) => {
         audioSourceRef.current = audioContextRef.current!.createBufferSource();
         audioSourceRef.current.buffer = buffer;

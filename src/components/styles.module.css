@@ -7,9 +7,66 @@
     padding: 0;
     font-size: 36px;
     padding-top: 12px;
-    padding-left: 24px;
+    text-align: center;
 }
 
 .topMarginLabel{
     padding-top: 60px;
 }
+
+.errorMainDiv{
+    position: fixed;
+    width: 360px;
+    height: 200px;
+    inset:0;
+    margin: auto;
+    background-color:#fff;
+    border-radius: 35px;
+    border: #000 solid 3px;
+    background-color: #fff;
+
+    
+}
+.innerMainDiv{
+    position: relative;
+    height: 80%;
+    margin: 5%;
+    padding: 0 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-break: break-all;
+    border-radius: 35px;
+    background-color: #fff;
+}
+
+.batsu{
+    position: absolute;
+    top:-35px;
+    right:-35px;
+    font-size: 120%;
+    font-weight: bold;
+    border: 3px solid #EA3639;
+    background-color: #EA3639;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.batsu:hover{
+    background-color: #EA3639;
+    border-color: #000;
+    color: #fff;
+}
+
+.eroorMessage{
+    display: block;
+    text-align: center;
+}
+

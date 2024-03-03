@@ -88,10 +88,6 @@ const JARUJARU_ISLAND_PLAYLISTS: VideoInfo[] = [
     title: "第17回祇園お笑い新人大賞",
   },
   {
-    id: "PL52aY2wM99ilMHtFDlVRvRO9e8Kvmj5n8",
-    title: "ゼロから新ネタ作る奴",
-  },
-  {
     id: "PL52aY2wM99invD0-yZrnK03Ditpnjj7o9",
     title: "スターと出会う奴",
   },
