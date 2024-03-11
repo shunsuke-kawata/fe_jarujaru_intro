@@ -1,12 +1,9 @@
 import styles from "./styles.module.css";
 
-const HeaderFixed = ({ headerTitle }: { headerTitle: string }) => {
-  return <div className={styles.globalHeader}>{headerTitle}</div>;
-};
 const Header = ({ headerTitle }: { headerTitle: string }) => {
   return (
     <>
-      <HeaderFixed headerTitle={headerTitle} />
+      <h1 className={styles.globalHeader}>{headerTitle}</h1>
       <p className={styles.topMarginLabel}></p>
     </>
   );

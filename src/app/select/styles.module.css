@@ -37,3 +37,9 @@
 .questionNumberInput{
     font-size: 24px;
 }
+
+.optionSelectDiv{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}

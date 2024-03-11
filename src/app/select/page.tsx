@@ -5,7 +5,7 @@ import {
   JARUJARU_TOWER_PLAYLISTS,
   JARUJARU_ISLAND_PLAYLISTS,
 } from "../../../config";
-import { VideoInfo } from "@/types/configType";
+import { VideoInfo, AnswerStatus } from "@/types/configType";
 import React from "react";
 import Header from "@/components/header";
 import ErrorWindow from "@/components/errorWindow";
@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 
 const Select = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
-  const [questionNumber, setQuestionNumber] = useState<number>(10);
+  const [questionNumber, setQuestionNumber] = useState<number>(5);
   const [isShowError, setIsShowError] = useState(false);
 
   const router = useRouter();
@@ -66,7 +66,7 @@ const Select = () => {
         <div
           className={`${
             selected ? styles.selectedTitleButton : styles.titleButton
-          } ${index % 4 !== 3 ? styles.notRightButton : ""}`}
+          } ${index % 3 !== 2 ? styles.notRightButton : ""}`}
           // {selected ? styles.selectedTitleButton : styles.titleButton}
           onClick={() => updateSelectPlaylistId(id)}
         >
@@ -91,7 +91,7 @@ const Select = () => {
               title={videoInfo.title}
               selected={selectedPlaylistId.includes(videoInfo.id)}
             />
-            {index % 4 === 3 && index !== videoInfoList.length - 1 && <br />}
+            {index % 3 === 2 && index !== videoInfoList.length - 1 && <br />}
           </React.Fragment>
         ))}
       </div>
@@ -102,32 +102,36 @@ const Select = () => {
   return (
     <>
       <Header headerTitle={"オプション選択"} />
-      <label className={styles.questionNumberInput}>問題数</label>
-      <input
-        type="number"
-        name="questionNumber"
-        min={5}
-        max={20}
-        value={questionNumber} // 状態をバインド
-        onChange={handleQuestionNumberChange} // 入力値が変更された時の処理
-        className={styles.questionNumberInput}
-      />
-      <label className={styles.questionNumberInput}>問</label>
-      <input
-        type="button"
-        value={"クイズへ"}
-        className={styles.questionNumberInput}
-        onClick={() => handleToQuizButton()}
-      />
+
+      <h2 className={styles.subtitles}>プレイリスト選択</h2>
       <h3 className={styles.subtitles}>JARUJARU TOWER</h3>
       <TitleButtonList videoInfoList={JARUJARU_TOWER_PLAYLISTS} />
-      <h3 className={styles.subtitles}>JARUJARU ISLAND</h3>
-      <TitleButtonList videoInfoList={JARUJARU_ISLAND_PLAYLISTS} />
+
+      {/* タイトル取得の処理が面倒なため一旦パス */}
+      {/* <h3 className={styles.subtitles}>JARUJARU ISLAND</h3>
+      <TitleButtonList videoInfoList={JARUJARU_ISLAND_PLAYLISTS} /> */}
+      <div className={styles.optionSelectDiv}>
+        <label className={styles.questionNumberInput}>問題数</label>
+        <input
+          type="number"
+          name="questionNumber"
+          min={3}
+          max={20}
+          value={questionNumber} // 状態をバインド
+          onChange={handleQuestionNumberChange} // 入力値が変更された時の処理
+          className={styles.questionNumberInput}
+        />
+        <label className={styles.questionNumberInput}>問</label>
+        <input
+          type="button"
+          value={"クイズへ"}
+          className={styles.questionNumberInput}
+          onClick={() => handleToQuizButton()}
+        />
+      </div>
       {isShowError ? (
         <ErrorWindow
-          errorMessage={
-            "問題を選択してくださいaaaaaaaaaaaaaaaaaaaaaaaaaaasdgresmdfkgeopfdoijop"
-          }
+          errorMessage={"問題を選択してください"}
           stateFunction={setIsShowError}
         />
       ) : (

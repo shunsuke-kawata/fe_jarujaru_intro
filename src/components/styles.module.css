@@ -24,17 +24,25 @@
     border-radius: 35px;
     border: #000 solid 3px;
     background-color: #fff;
+}
 
-    
+.explanationMainDiv{
+    position: fixed;
+    width: 540px;
+    height: 300px;
+    inset:0;
+    margin: auto;
+    background-color:#fff;
+    border-radius: 35px;
+    border: #000 solid 3px;
+    background-color: #fff;
 }
 .innerMainDiv{
     position: relative;
     height: 80%;
     margin: 5%;
     padding: 0 2%;
-    display: flex;
     justify-content: center;
-    align-items: center;
     word-break: break-all;
     border-radius: 35px;
     background-color: #fff;
@@ -44,11 +52,11 @@
     position: absolute;
     top:-35px;
     right:-35px;
-    font-size: 120%;
+    font-size: 140%;
     font-weight: bold;
-    border: 3px solid #EA3639;
+    border: 3px solid #000;
     background-color: #EA3639;
-    color: #fff;
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,12 +69,20 @@
 
 .batsu:hover{
     background-color: #EA3639;
-    border-color: #000;
     color: #fff;
 }
 
 .eroorMessage{
     display: block;
     text-align: center;
+}
+
+.isCorrectMessage{
+    text-align: center;
+}
+
+.explanationTitle{
+    text-align: center;
+    word-break: break-all;
 }
 

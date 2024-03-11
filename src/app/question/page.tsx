@@ -4,6 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
 import Header from "@/components/header";
 import { getQuestionAudio, getQuestionData } from "@/api/api";
+import { QuestionInfoResponse } from "@/types/apiResponseType";
+import { AnswerStatus } from "@/types/configType";
+import ExplanationWindow from "@/components/explanationWindow";
 
 const Question = () => {
   const searchParams = useSearchParams();
@@ -11,14 +14,25 @@ const Question = () => {
   const playlistIdParam = searchParams.getAll("playlistId");
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
+  const answerRef = useRef<HTMLInputElement>(null);
+  const questionDataRef = useRef<QuestionInfoResponse | null>(null);
   const [audioStatus, setAudioStatus] = useState<number>(0);
-
-  //現在の問題数
   const [questionIndex, setQuestionIndex] = useState<number>(1);
+
+  //オーディオが終了した時に
+  const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
+  const isCorrectRef = useRef<boolean>(false);
+
+  const [answerStatusArrray, setAnswerStatusArray] = useState<AnswerStatus[]>(
+    []
+  );
+
+  const router = useRouter();
 
   useEffect(() => {
     //contextの初期化・生成
     handleFetchData();
+    console.log(answerStatusArrray);
     return () => {
       handleStop(); // コンポーネントがアンマウントされる際に音声を停止
     };
@@ -38,8 +52,12 @@ const Question = () => {
       questionIndex < Number(questionNumberParam)
     ) {
       incrementIndex();
+      setAudioEnded(null);
+      handleNavigation();
     } else {
-      console.log("end");
+      //回数が終了した時に結果画面に遷移
+      const url = `/result`;
+      router.push(url);
     }
   };
 
@@ -52,12 +70,16 @@ const Question = () => {
     try {
       setAudioStatus(0);
       const questionData: any = await getQuestionData(playlistIdParam);
-      console.log(questionData);
+      questionDataRef.current = questionData;
+
+      setAudioEnded(null);
+      isCorrectRef.current = false;
       const audioData = await getQuestionAudio(questionData.id);
       audioContextRef.current.decodeAudioData(audioData, (buffer) => {
         audioSourceRef.current = audioContextRef.current!.createBufferSource();
         audioSourceRef.current.buffer = buffer;
         audioSourceRef.current.connect(audioContextRef.current!.destination);
+        audioSourceRef.current.onended = handleAudioEnded;
         setAudioStatus(1);
       });
     } catch (error) {
@@ -71,7 +93,7 @@ const Question = () => {
     }
     if (audioSourceRef.current && audioContextRef.current) {
       setAudioStatus(2);
-      console.log("start");
+      setAudioEnded(false);
       audioSourceRef.current.start(0);
     }
   };
@@ -80,8 +102,33 @@ const Question = () => {
     if (audioSourceRef.current && audioContextRef.current) {
       audioSourceRef.current.disconnect();
       audioSourceRef.current = null;
-      console.log("broken context");
+      handleAudioEnded();
     }
+  };
+
+  const checkAnswerIsCorrect = () => {
+    if (answerRef.current?.value === questionDataRef.current?.title) {
+      isCorrectRef.current = true;
+      handleStop();
+    }
+  };
+
+  const handleAudioEnded = () => {
+    setAudioStatus(3);
+    setAudioEnded(true);
+    if (questionDataRef.current !== null) {
+      let tmpAnswerStatus: AnswerStatus = {
+        isCorrect: isCorrectRef.current,
+        id: questionDataRef.current?.id,
+        title: questionDataRef.current?.title,
+        questionIndex: questionIndex,
+      };
+      answerStatusArrray.push(tmpAnswerStatus);
+    }
+  };
+
+  const handleGiveUp = () => {
+    handleStop();
   };
 
   return (
@@ -95,6 +142,8 @@ const Question = () => {
           <p className={styles.phoneSentence}>着信中</p>
         ) : audioStatus === 2 ? (
           <p className={styles.phoneSentence}>通話中</p>
+        ) : audioStatus === 3 ? (
+          <p className={styles.phoneSentence}>通話終了</p>
         ) : (
           ""
         )}
@@ -103,6 +152,8 @@ const Question = () => {
             type={"text"}
             autoComplete={"off"}
             className={styles.answerTitleInput}
+            ref={answerRef}
+            onChange={() => checkAnswerIsCorrect()}
           ></input>
         ) : (
           ""
@@ -119,6 +170,8 @@ const Question = () => {
                 ? styles.isWaiting
                 : audioStatus === 2
                 ? styles.isStarted
+                : audioStatus === 3
+                ? styles.isFetching
                 : ""
             } ${styles.startButtonDiv}`}
           onClick={() => handlePlay()}
@@ -130,12 +183,26 @@ const Question = () => {
           />
         </div>
       </div>
-      <input
-        type="button"
-        value={"次の問題へ"}
-        className={styles.nextQuestionButton}
-        onClick={() => handleNextQuestion()}
-      ></input>
+      {audioStatus === 1 || audioStatus === 2 ? (
+        <input
+          type="button"
+          value={"諦める"}
+          className={styles.nextQuestionButton}
+          onClick={() => handleStop()}
+        ></input>
+      ) : (
+        ""
+      )}
+
+      {audioEnded && questionDataRef.current !== null ? (
+        <ExplanationWindow
+          isCorrect={isCorrectRef.current}
+          questionData={questionDataRef.current}
+          handleFunction={handleNextQuestion}
+        />
+      ) : (
+        ""
+      )}
     </>
   );
 };

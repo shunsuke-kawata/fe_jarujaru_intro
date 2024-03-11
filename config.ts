@@ -8,14 +8,6 @@ const JARUJARU_ISLAND_CHANNEL_ID: string = "UCf-wG6PlxW7rpixx1tmODJw";
 // 更新を行う必要がある
 const JARUJARU_TOWER_PLAYLISTS: VideoInfo[] = [
   {
-    id: "PLRdiaanKAFQlJKPO75in2WNF0wKJyo4qe",
-    title: "本気ネタ",
-  },
-  {
-    id: "PLRdiaanKAFQl5ERDgJHx2ZRKCcIl-I8fz",
-    title: "１０８本！煩悩ネタ！",
-  },
-  {
     id: "PLRdiaanKAFQl3AKF2ruBbuTKj0dZnVqaJ",
     title: "１億回記念！本気ネタ！",
   },
@@ -32,8 +24,16 @@ const JARUJARU_TOWER_PLAYLISTS: VideoInfo[] = [
     title: "５億回記念！本気ネタ！",
   },
   {
+    id: "PLRdiaanKAFQlJKPO75in2WNF0wKJyo4qe",
+    title: "本気ネタ",
+  },
+  {
     id: "PLRdiaanKAFQlHOVLx1AHe2vIpjlakfkAN",
     title: "ジャルジャルコント",
+  },
+  {
+    id: "PLRdiaanKAFQl5ERDgJHx2ZRKCcIl-I8fz",
+    title: "１０８本！煩悩ネタ！",
   },
   {
     id: "PLRdiaanKAFQk30MsMqvwPyASD9tqKUInG",
@@ -72,24 +72,12 @@ const JARUJARU_TOWER_PLAYLISTS: VideoInfo[] = [
 // 更新を行う必要がある
 const JARUJARU_ISLAND_PLAYLISTS: VideoInfo[] = [
   {
-    id: "PL52aY2wM99ilIbNCybsQ41s8zUxnRG7xC",
-    title: "バリアフリー字幕ついてる奴",
+    id: "PL52aY2wM99ikod2rVdEk05_oUPTv_hBBz",
+    title: "朝メシ食う奴",
   },
   {
-    id: "PL52aY2wM99inhauDD7A5BBqbhBl7k08VC",
-    title: "ハズレの先生が担任になった奴",
-  },
-  {
-    id: "PL52aY2wM99ikQ36hBB6OunvfOFjWEi8Th",
-    title: "ウルフルズに影響されてる奴",
-  },
-  {
-    id: "PL52aY2wM99im0j6U6dUMuwjG8ZDhFvUkC",
-    title: "第17回祇園お笑い新人大賞",
-  },
-  {
-    id: "PL52aY2wM99invD0-yZrnK03Ditpnjj7o9",
-    title: "スターと出会う奴",
+    id: "PL52aY2wM99incJsJwecCThKHP7oZs-ezp",
+    title: "日常撮る奴",
   },
   {
     id: "PL52aY2wM99ikxrZXoP5wYvT-JHjtrouh9",
@@ -100,17 +88,31 @@ const JARUJARU_ISLAND_PLAYLISTS: VideoInfo[] = [
     title: "真夜中に電話する奴",
   },
   {
-    id: "PL52aY2wM99imyKBkFK8wRzOMe6dKeEX9e",
-    title: "変な司会者の奴",
+    id: "PL52aY2wM99ilIbNCybsQ41s8zUxnRG7xC",
+    title: "バリアフリー字幕ついてる奴",
   },
   {
-    id: "PL52aY2wM99incJsJwecCThKHP7oZs-ezp",
-    title: "日常撮る奴",
+    id: "PL52aY2wM99inhauDD7A5BBqbhBl7k08VC",
+    title: "ハズレの先生が担任になった奴",
   },
   {
-    id: "PL52aY2wM99ikod2rVdEk05_oUPTv_hBBz",
-    title: "朝メシ食う奴",
+    id: "PL52aY2wM99im0j6U6dUMuwjG8ZDhFvUkC",
+    title: "第17回祇園お笑い新人大賞",
   },
+  //イントロにできそうにないため削除
+
+  // {
+  //   id: "PL52aY2wM99ikQ36hBB6OunvfOFjWEi8Th",
+  //   title: "ウルフルズに影響されてる奴",
+  // },
+  // {
+  //   id: "PL52aY2wM99invD0-yZrnK03Ditpnjj7o9",
+  //   title: "スターと出会う奴",
+  // },
+  // {
+  //   id: "PL52aY2wM99imyKBkFK8wRzOMe6dKeEX9e",
+  //   title: "変な司会者の奴",
+  // },
 ];
 
 //全ての定数をexport
