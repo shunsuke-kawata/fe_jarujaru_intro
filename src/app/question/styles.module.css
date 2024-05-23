@@ -55,7 +55,7 @@
 
 .answerTitleInput{
     position: absolute;
-    top:40%;
+    top:85%;
     left:-50%;
     width:200%;
     height: 40px;
@@ -67,4 +67,10 @@
     width:fit-content;
     /* あとで変える */
     margin-left:80%;
+}
+
+.youtubeViewList{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }

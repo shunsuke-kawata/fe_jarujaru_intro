@@ -103,29 +103,31 @@ const Select = () => {
     <>
       <Header headerTitle={"オプション選択"} />
 
-      <h2 className={styles.subtitles}>プレイリスト選択</h2>
-      <h3 className={styles.subtitles}>JARUJARU TOWER</h3>
+      <h2 className={styles.subtitles}>プレイリスト一覧</h2>
       <TitleButtonList videoInfoList={JARUJARU_TOWER_PLAYLISTS} />
 
       {/* タイトル取得の処理が面倒なため一旦パス */}
       {/* <h3 className={styles.subtitles}>JARUJARU ISLAND</h3>
       <TitleButtonList videoInfoList={JARUJARU_ISLAND_PLAYLISTS} /> */}
       <div className={styles.optionSelectDiv}>
-        <label className={styles.questionNumberInput}>問題数</label>
-        <input
-          type="number"
-          name="questionNumber"
-          min={3}
-          max={20}
-          value={questionNumber} // 状態をバインド
-          onChange={handleQuestionNumberChange} // 入力値が変更された時の処理
-          className={styles.questionNumberInput}
-        />
-        <label className={styles.questionNumberInput}>問</label>
+        <div className={styles.numberOfQuestion}>
+          <label className={styles.questionNumberInput}>問題数</label>
+          <input
+            type="number"
+            name="questionNumber"
+            min={3}
+            max={20}
+            value={questionNumber} // 状態をバインド
+            onChange={handleQuestionNumberChange} // 入力値が変更された時の処理
+            className={styles.questionNumberInput}
+          />
+          <label className={styles.questionNumberInput}>問</label>
+        </div>
+
         <input
           type="button"
           value={"クイズへ"}
-          className={styles.questionNumberInput}
+          className={`${styles.questionNumberInput} ${styles.toIntroButton}`}
           onClick={() => handleToQuizButton()}
         />
       </div>

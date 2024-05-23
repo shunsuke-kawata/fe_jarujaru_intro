@@ -86,3 +86,7 @@
     word-break: break-all;
 }
 
+.flexViewlist{
+    display: flex;
+}
+

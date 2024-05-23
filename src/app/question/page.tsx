@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
 import Header from "@/components/header";
@@ -7,11 +7,39 @@ import { getQuestionAudio, getQuestionData } from "@/api/api";
 import { QuestionInfoResponse } from "@/types/apiResponseType";
 import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
+import YoutubeViewList from "@/components/youtubeViewList";
+
+const ResultDisplay = ({
+  answerStatusArray,
+}: {
+  answerStatusArray: AnswerStatus[];
+}) => {
+  //filterして合っていた問題と間違っていた問題に選別
+  const correctAnswerArray: AnswerStatus[] = answerStatusArray.filter(
+    (value) => {
+      return value.isCorrect === true;
+    }
+  );
+  const incorrectAnswerArray: AnswerStatus[] = answerStatusArray.filter(
+    (value) => {
+      return value.isCorrect === false;
+    }
+  );
+
+  return (
+    <div className={styles.youtubeViewList}>
+      <p>間違えた奴ら</p>
+      <YoutubeViewList answerArray={incorrectAnswerArray} />
+      <p>合ってた奴ら</p>
+      <YoutubeViewList answerArray={correctAnswerArray} />
+    </div>
+  );
+};
 
 const Question = () => {
   const searchParams = useSearchParams();
-  const questionNumberParam = searchParams.get("questionNumber");
-  const playlistIdParam = searchParams.getAll("playlistId");
+  const questionNumberParam: string | null = searchParams.get("questionNumber");
+  const playlistIdParam: string[] = searchParams.getAll("playlistId");
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const answerRef = useRef<HTMLInputElement>(null);
@@ -23,9 +51,9 @@ const Question = () => {
   const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
   const isCorrectRef = useRef<boolean>(false);
 
-  const [answerStatusArrray, setAnswerStatusArray] = useState<AnswerStatus[]>(
-    []
-  );
+  const [isFinished, setIsFinished] = useState<boolean>(false);
+
+  const answerStatusArrray = useRef<AnswerStatus[]>([]);
 
   const router = useRouter();
 
@@ -49,15 +77,14 @@ const Question = () => {
   const handleNextQuestion = () => {
     if (
       questionNumberParam !== null &&
-      questionIndex < Number(questionNumberParam)
+      questionIndex < Number(questionNumberParam) &&
+      isFinished === false
     ) {
       incrementIndex();
       setAudioEnded(null);
       handleNavigation();
     } else {
-      //回数が終了した時に結果画面に遷移
-      const url = `/result`;
-      router.push(url);
+      setIsFinished(true);
     }
   };
 
@@ -114,6 +141,7 @@ const Question = () => {
   };
 
   const handleAudioEnded = () => {
+    console.log("ended");
     setAudioStatus(3);
     setAudioEnded(true);
     if (questionDataRef.current !== null) {
@@ -123,44 +151,46 @@ const Question = () => {
         title: questionDataRef.current?.title,
         questionIndex: questionIndex,
       };
-      answerStatusArrray.push(tmpAnswerStatus);
+      if (answerStatusArrray.current.length === questionIndex - 1) {
+        answerStatusArrray.current.push(tmpAnswerStatus);
+      }
     }
-  };
-
-  const handleGiveUp = () => {
-    handleStop();
   };
 
   return (
     <>
-      <Header headerTitle={"クイズ画面"} />
-      <p className={styles.secondTitle}>{questionIndex}問目</p>
-      <div className={styles.phoneDisplayDiv}>
-        {audioStatus === 0 ? (
-          <p className={styles.phoneSentence}>接続中...</p>
-        ) : audioStatus === 1 ? (
-          <p className={styles.phoneSentence}>着信中</p>
-        ) : audioStatus === 2 ? (
-          <p className={styles.phoneSentence}>通話中</p>
-        ) : audioStatus === 3 ? (
-          <p className={styles.phoneSentence}>通話終了</p>
-        ) : (
-          ""
-        )}
-        {audioStatus === 1 || audioStatus === 2 ? (
-          <input
-            type={"text"}
-            autoComplete={"off"}
-            className={styles.answerTitleInput}
-            ref={answerRef}
-            onChange={() => checkAnswerIsCorrect()}
-          ></input>
-        ) : (
-          ""
-        )}
+      <Header headerTitle={isFinished ? "結果画面" : "クイズ画面"} />
+      {isFinished ? (
+        <ResultDisplay answerStatusArray={answerStatusArrray.current} />
+      ) : (
+        <>
+          <p className={styles.secondTitle}>{questionIndex}問目</p>
+          <div className={styles.phoneDisplayDiv}>
+            {audioStatus === 0 ? (
+              <p className={styles.phoneSentence}>接続中...</p>
+            ) : audioStatus === 1 ? (
+              <p className={styles.phoneSentence}>着信中</p>
+            ) : audioStatus === 2 ? (
+              <p className={styles.phoneSentence}>通話中</p>
+            ) : audioStatus === 3 ? (
+              <p className={styles.phoneSentence}>通話終了</p>
+            ) : (
+              ""
+            )}
+            {audioStatus === 1 || audioStatus === 2 ? (
+              <input
+                type={"text"}
+                autoComplete={"off"}
+                className={styles.answerTitleInput}
+                ref={answerRef}
+                onChange={() => checkAnswerIsCorrect()}
+              ></input>
+            ) : (
+              ""
+            )}
 
-        <div
-          className={`
+            <div
+              className={`
             ${
               audioStatus === null
                 ? ""
@@ -174,34 +204,36 @@ const Question = () => {
                 ? styles.isFetching
                 : ""
             } ${styles.startButtonDiv}`}
-          onClick={() => handlePlay()}
-        >
-          <img
-            className={styles.phoneButton}
-            src="/phone.svg"
-            alt="再生ボタン"
-          />
-        </div>
-      </div>
-      {audioStatus === 1 || audioStatus === 2 ? (
-        <input
-          type="button"
-          value={"諦める"}
-          className={styles.nextQuestionButton}
-          onClick={() => handleStop()}
-        ></input>
-      ) : (
-        ""
-      )}
+              onClick={() => handlePlay()}
+            >
+              <img
+                className={styles.phoneButton}
+                src="/phone.svg"
+                alt="再生ボタン"
+              />
+            </div>
+          </div>
+          {audioStatus === 1 || audioStatus === 2 ? (
+            <input
+              type="button"
+              value={"諦める"}
+              className={styles.nextQuestionButton}
+              onClick={() => handleStop()}
+            ></input>
+          ) : (
+            ""
+          )}
 
-      {audioEnded && questionDataRef.current !== null ? (
-        <ExplanationWindow
-          isCorrect={isCorrectRef.current}
-          questionData={questionDataRef.current}
-          handleFunction={handleNextQuestion}
-        />
-      ) : (
-        ""
+          {audioEnded && questionDataRef.current !== null ? (
+            <ExplanationWindow
+              isCorrect={isCorrectRef.current}
+              questionData={questionDataRef.current}
+              handleFunction={handleNextQuestion}
+            />
+          ) : (
+            ""
+          )}
+        </>
       )}
     </>
   );

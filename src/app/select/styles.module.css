@@ -35,11 +35,32 @@
 }
 
 .questionNumberInput{
-    font-size: 24px;
+    font-size: 28px;
+    padding-right: 5px;
 }
 
 .optionSelectDiv{
-    margin-top: 20px;
+    background-color: #FFFFFF;
+    margin-top: 40px;
     margin-bottom: 20px;
-    width: 100%;
+    width: 48%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border-radius: 50px;
+}
+.toIntroButton{
+    position: absolute;
+    top:25%;
+    right: 15%;
+    background-color: #eedcb3;
+    color: #000000;
+    border:none;
+}
+
+.numberOfQuestion{
+    position: absolute;
+    top:25%;
+    left: 10%;
 }
