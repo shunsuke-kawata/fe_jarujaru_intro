@@ -66,7 +66,11 @@
 .nextQuestionButton{
     width:fit-content;
     /* あとで変える */
-    margin-left:80%;
+    position:absolute;
+    right:-80px;
+    bottom:-10px;
+
+
 }
 
 .youtubeViewList{

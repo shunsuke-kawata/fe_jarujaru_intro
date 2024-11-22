@@ -9,6 +9,7 @@ import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
 import YoutubeViewList from "@/components/youtubeViewList";
 
+type audioStatusString = "fetching" | "waiting" | "started" | "finished";
 const ResultDisplay = ({
   answerStatusArray,
 }: {
@@ -44,15 +45,13 @@ const Question = () => {
   const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const answerRef = useRef<HTMLInputElement>(null);
   const questionDataRef = useRef<QuestionInfoResponse | null>(null);
-  const [audioStatus, setAudioStatus] = useState<number>(0);
+  const [audioStatus, setAudioStatus] = useState<audioStatusString>("fetching");
   const [questionIndex, setQuestionIndex] = useState<number>(1);
 
   //オーディオが終了した時に
   const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
   const isCorrectRef = useRef<boolean>(false);
-
   const [isFinished, setIsFinished] = useState<boolean>(false);
-
   const answerStatusArrray = useRef<AnswerStatus[]>([]);
 
   const router = useRouter();
@@ -91,11 +90,13 @@ const Question = () => {
   const handleFetchData = async () => {
     //contextファイルの更新
     console.log("downloadの開始");
+    audioContextRef.current = null;
+    audioSourceRef.current = null;
     audioContextRef.current = new AudioContext();
     if (!audioContextRef.current) return;
 
     try {
-      setAudioStatus(0);
+      setAudioStatus("fetching");
       const questionData: any = await getQuestionData(playlistIdParam);
       questionDataRef.current = questionData;
 
@@ -107,7 +108,7 @@ const Question = () => {
         audioSourceRef.current.buffer = buffer;
         audioSourceRef.current.connect(audioContextRef.current!.destination);
         audioSourceRef.current.onended = handleAudioEnded;
-        setAudioStatus(1);
+        setAudioStatus("waiting");
       });
     } catch (error) {
       console.error("Failed to fetch MP3 data:", error);
@@ -115,11 +116,11 @@ const Question = () => {
   };
 
   const handlePlay = () => {
-    if (audioStatus !== 1) {
+    if (audioStatus !== "waiting") {
       return;
     }
     if (audioSourceRef.current && audioContextRef.current) {
-      setAudioStatus(2);
+      setAudioStatus("started");
       setAudioEnded(false);
       audioSourceRef.current.start(0);
     }
@@ -141,8 +142,8 @@ const Question = () => {
   };
 
   const handleAudioEnded = () => {
-    console.log("ended");
-    setAudioStatus(3);
+    console.log("finished");
+    setAudioStatus("finished");
     setAudioEnded(true);
     if (questionDataRef.current !== null) {
       let tmpAnswerStatus: AnswerStatus = {
@@ -159,25 +160,25 @@ const Question = () => {
 
   return (
     <>
-      <Header headerTitle={isFinished ? "結果画面" : "クイズ画面"} />
+      <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
       {isFinished ? (
         <ResultDisplay answerStatusArray={answerStatusArrray.current} />
       ) : (
         <>
           <p className={styles.secondTitle}>{questionIndex}問目</p>
           <div className={styles.phoneDisplayDiv}>
-            {audioStatus === 0 ? (
+            {audioStatus === "fetching" ? (
               <p className={styles.phoneSentence}>接続中...</p>
-            ) : audioStatus === 1 ? (
+            ) : audioStatus === "waiting" ? (
               <p className={styles.phoneSentence}>着信中</p>
-            ) : audioStatus === 2 ? (
+            ) : audioStatus === "started" ? (
               <p className={styles.phoneSentence}>通話中</p>
-            ) : audioStatus === 3 ? (
+            ) : audioStatus === "finished" ? (
               <p className={styles.phoneSentence}>通話終了</p>
             ) : (
-              ""
+              <></>
             )}
-            {audioStatus === 1 || audioStatus === 2 ? (
+            {audioStatus === "waiting" || audioStatus === "started" ? (
               <input
                 type={"text"}
                 autoComplete={"off"}
@@ -186,7 +187,7 @@ const Question = () => {
                 onChange={() => checkAnswerIsCorrect()}
               ></input>
             ) : (
-              ""
+              <></>
             )}
 
             <div
@@ -194,13 +195,13 @@ const Question = () => {
             ${
               audioStatus === null
                 ? ""
-                : audioStatus === 0
+                : audioStatus === "fetching"
                 ? styles.isFetching
-                : audioStatus === 1
+                : audioStatus === "waiting"
                 ? styles.isWaiting
-                : audioStatus === 2
+                : audioStatus === "started"
                 ? styles.isStarted
-                : audioStatus === 3
+                : audioStatus === "finished"
                 ? styles.isFetching
                 : ""
             } ${styles.startButtonDiv}`}
@@ -212,17 +213,17 @@ const Question = () => {
                 alt="再生ボタン"
               />
             </div>
+            {audioStatus === "waiting" || audioStatus === "started" ? (
+              <input
+                type="button"
+                value={"諦める"}
+                className={styles.nextQuestionButton}
+                onClick={() => handleStop()}
+              ></input>
+            ) : (
+              <></>
+            )}
           </div>
-          {audioStatus === 1 || audioStatus === 2 ? (
-            <input
-              type="button"
-              value={"諦める"}
-              className={styles.nextQuestionButton}
-              onClick={() => handleStop()}
-            ></input>
-          ) : (
-            ""
-          )}
 
           {audioEnded && questionDataRef.current !== null ? (
             <ExplanationWindow
@@ -231,7 +232,7 @@ const Question = () => {
               handleFunction={handleNextQuestion}
             />
           ) : (
-            ""
+            <></>
           )}
         </>
       )}

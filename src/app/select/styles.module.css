@@ -4,12 +4,17 @@
     text-align: center;
     display: inline-block;
     margin-bottom: 20px;
-    border-radius: 50px;
+    border-radius: 15px;
     font-size: 16px;
 }
 
 .titleButton {
     background-color: #eedcb3;
+    color: #000000;
+}
+
+.titleButton:hover {
+    background-color: #f0d38f;
     color: #000000;
 }
 
@@ -36,7 +41,9 @@
 
 .questionNumberInput{
     font-size: 28px;
-    padding-right: 5px;
+    padding-right: 10px;
+    border:none;
+    text-align: left;
 }
 
 .optionSelectDiv{
@@ -48,15 +55,16 @@
     margin-left: auto;
     margin-right: auto;
     position: relative;
-    border-radius: 50px;
+    border-radius: 15px;
 }
 .toIntroButton{
     position: absolute;
     top:25%;
     right: 15%;
-    background-color: #eedcb3;
     color: #000000;
+    background-color: #FFFFFF;
     border:none;
+    border-bottom: 1px solid #000000;
 }
 
 .numberOfQuestion{

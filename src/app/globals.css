@@ -1,7 +1,13 @@
 body {
     background-color: #84ddea;
     margin: 0;
-  }
+    margin: 0;
+    font-family: "Meiryo", "MS PGothic", "Hiragino Kaku Gothic Pro", sans-serif;
+}
+
+:focus {
+    outline: none;
+}
 
 /* 画面上部の余白を消す */
 *{

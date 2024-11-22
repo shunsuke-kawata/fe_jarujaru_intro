@@ -1,10 +1,7 @@
 "use client";
 import styles from "./styles.module.css";
 import { useRef, useState } from "react";
-import {
-  JARUJARU_TOWER_PLAYLISTS,
-  JARUJARU_ISLAND_PLAYLISTS,
-} from "../../../config";
+import { JARUJARU_TOWER_PLAYLISTS } from "../../../config";
 import { VideoInfo, AnswerStatus } from "@/types/configType";
 import React from "react";
 import Header from "@/components/header";
@@ -21,8 +18,9 @@ const Select = () => {
   const handleQuestionNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    const value = parseInt(event.target.value); // 入力値を数値に変換
-    setQuestionNumber(value); // 状態を更新
+    let value = parseInt(event.target.value); // 入力値を数値に変換
+    if (isNaN(value) || value < 3 || value > 20) return;
+    setQuestionNumber(value);
   };
 
   const handleToQuizButton = () => {
@@ -67,7 +65,6 @@ const Select = () => {
           className={`${
             selected ? styles.selectedTitleButton : styles.titleButton
           } ${index % 3 !== 2 ? styles.notRightButton : ""}`}
-          // {selected ? styles.selectedTitleButton : styles.titleButton}
           onClick={() => updateSelectPlaylistId(id)}
         >
           {title}
@@ -101,14 +98,11 @@ const Select = () => {
   //render
   return (
     <>
-      <Header headerTitle={"オプション選択"} />
+      <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
 
       <h2 className={styles.subtitles}>プレイリスト一覧</h2>
       <TitleButtonList videoInfoList={JARUJARU_TOWER_PLAYLISTS} />
 
-      {/* タイトル取得の処理が面倒なため一旦パス */}
-      {/* <h3 className={styles.subtitles}>JARUJARU ISLAND</h3>
-      <TitleButtonList videoInfoList={JARUJARU_ISLAND_PLAYLISTS} /> */}
       <div className={styles.optionSelectDiv}>
         <div className={styles.numberOfQuestion}>
           <label className={styles.questionNumberInput}>問題数</label>
@@ -117,11 +111,11 @@ const Select = () => {
             name="questionNumber"
             min={3}
             max={20}
-            value={questionNumber} // 状態をバインド
-            onChange={handleQuestionNumberChange} // 入力値が変更された時の処理
+            value={questionNumber}
+            onChange={handleQuestionNumberChange}
             className={styles.questionNumberInput}
           />
-          <label className={styles.questionNumberInput}>問</label>
+          <label className={styles.questionNumberInput}></label>
         </div>
 
         <input
