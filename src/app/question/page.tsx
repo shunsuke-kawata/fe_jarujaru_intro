@@ -53,6 +53,7 @@ const Question = () => {
   const isCorrectRef = useRef<boolean>(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const answerStatusArrray = useRef<AnswerStatus[]>([]);
+  const [isOpenAssistive, setIsOpenAssistive] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -85,6 +86,7 @@ const Question = () => {
     } else {
       setIsFinished(true);
     }
+    setIsOpenAssistive(false);
   };
 
   const handleFetchData = async () => {
@@ -213,16 +215,27 @@ const Question = () => {
                 alt="再生ボタン"
               />
             </div>
-            {audioStatus === "waiting" || audioStatus === "started" ? (
-              <input
-                type="button"
-                value={"諦める"}
-                className={styles.nextQuestionButton}
-                onClick={() => handleStop()}
-              ></input>
-            ) : (
-              <></>
-            )}
+            <div
+              className={`${styles.assistiveTouch}`}
+              onClick={() => setIsOpenAssistive(!isOpenAssistive)}
+            >
+              <div className={styles.innerCircle}>
+                <div className={styles.core}></div>
+              </div>
+            </div>
+            <div
+              className={`${styles.assistiveMenu} ${
+                isOpenAssistive ? styles.open : ""
+              }`}
+            >
+              <div onClick={handleNextQuestion}>この問題を諦める</div>
+              <div onClick={() => router.push("/select")}>結果画面へ</div>
+              <div onClick={() => router.push("/select")}>
+                プレイリスト選択へ
+              </div>
+              <div onClick={() => router.push("/top")}>トップへ</div>
+              <div onClick={() => setIsOpenAssistive(false)}>閉じる</div>
+            </div>
           </div>
 
           {audioEnded && questionDataRef.current !== null ? (
