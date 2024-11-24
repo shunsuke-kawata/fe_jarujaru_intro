@@ -29,10 +29,14 @@ const ResultDisplay = ({
 
   return (
     <div className={styles.youtubeViewList}>
-      <p>間違えた奴ら</p>
-      <YoutubeViewList answerArray={incorrectAnswerArray} />
-      <p>合ってた奴ら</p>
-      <YoutubeViewList answerArray={correctAnswerArray} />
+      <YoutubeViewList
+        title={"間違えた奴ら"}
+        answerArray={incorrectAnswerArray}
+      />
+      <YoutubeViewList
+        title={"あってた奴ら"}
+        answerArray={correctAnswerArray}
+      />
     </div>
   );
 };
@@ -89,6 +93,9 @@ const Question = () => {
     setIsOpenAssistive(false);
   };
 
+  const giveUpQuestion = () => {
+    handleNextQuestion();
+  };
   const handleFetchData = async () => {
     //contextファイルの更新
     console.log("downloadの開始");
@@ -228,8 +235,7 @@ const Question = () => {
                 isOpenAssistive ? styles.open : ""
               }`}
             >
-              <div onClick={handleNextQuestion}>この問題を諦める</div>
-              <div onClick={() => router.push("/select")}>結果画面へ</div>
+              <div onClick={handleStop}>この問題を諦める</div>
               <div onClick={() => router.push("/select")}>
                 プレイリスト選択へ
               </div>

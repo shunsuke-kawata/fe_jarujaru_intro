@@ -86,3 +86,39 @@
     display: flex;
 }
 
+.youtubeViewList{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    margin-top: 16px;
+}
+
+.title{
+    font-size: 20px;
+    text-align: center;
+}
+
+.controls{
+    margin-top: 20px;
+    width:80%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttons{
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    border:none;
+    font-size: 16px;
+    background-color: #f0d38f;
+}
+
+.currentLabel{
+    font-size: 16px;
+    display: flex;
+    justify-content: center; /*左右中央揃え*/
+    align-items: center;     /*上下中央揃え*/
+}

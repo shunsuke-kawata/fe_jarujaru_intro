@@ -19,7 +19,7 @@ const Select = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     let value = parseInt(event.target.value); // 入力値を数値に変換
-    if (isNaN(value) || value < 3 || value > 20) return;
+    if (isNaN(value) || value < 2 || value > 20) return;
     setQuestionNumber(value);
   };
 
@@ -109,7 +109,7 @@ const Select = () => {
           <input
             type="number"
             name="questionNumber"
-            min={3}
+            min={2}
             max={20}
             value={questionNumber}
             onChange={handleQuestionNumberChange}
