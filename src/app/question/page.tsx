@@ -28,16 +28,18 @@ const ResultDisplay = ({
   );
 
   return (
-    <div className={styles.youtubeViewList}>
-      <YoutubeViewList
-        title={"間違えた奴ら"}
-        answerArray={incorrectAnswerArray}
-      />
-      <YoutubeViewList
-        title={"あってた奴ら"}
-        answerArray={correctAnswerArray}
-      />
-    </div>
+    <>
+      <div className={styles.youtubeViewListDiv}>
+        <YoutubeViewList
+          title={"間違えた奴ら"}
+          answerArray={incorrectAnswerArray}
+        />
+        <YoutubeViewList
+          title={"あってた奴ら"}
+          answerArray={correctAnswerArray}
+        />
+      </div>
+    </>
   );
 };
 
@@ -58,11 +60,13 @@ const Question = () => {
   const [isFinished, setIsFinished] = useState<boolean>(false);
   const answerStatusArrray = useRef<AnswerStatus[]>([]);
   const [isOpenAssistive, setIsOpenAssistive] = useState<boolean>(false);
-
   const router = useRouter();
 
   useEffect(() => {
     //contextの初期化・生成
+    if (isFinished) {
+      return;
+    }
     handleFetchData();
     console.log(answerStatusArrray);
     return () => {
@@ -171,7 +175,21 @@ const Question = () => {
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
       {isFinished ? (
-        <ResultDisplay answerStatusArray={answerStatusArrray.current} />
+        <>
+          <ResultDisplay answerStatusArray={answerStatusArrray.current} />
+          <div className={styles.linkButtonsDiv}>
+            <input
+              className={styles.linkButtons}
+              onClick={() => router.push("/select")}
+              value={"プレイリスト選択へ"}
+            />
+            <input
+              className={styles.linkButtons}
+              onClick={() => router.push("/top")}
+              value={"トップへ"}
+            />
+          </div>
+        </>
       ) : (
         <>
           <p className={styles.secondTitle}>{questionIndex}問目</p>

@@ -25,7 +25,7 @@
 .explanationMainDiv{
     position: fixed;
     width: 540px;
-    height: 300px;
+    height: 360px;
     inset:0;
     margin: auto;
     background-color:#fff;
@@ -90,7 +90,11 @@
     margin-left: auto;
     margin-right: auto;
     width: fit-content;
+    color:#FFFFFF;
+    padding: 15px 60px 15px 60px;
     margin-top: 16px;
+    background-color: #000000;
+    border-radius: 15px;
 }
 
 .title{
@@ -113,6 +117,9 @@
     border-radius: 15px;
     border:none;
     font-size: 16px;
+    background-color: #eedcb3;
+}
+.buttons:hover {
     background-color: #f0d38f;
 }
 
@@ -122,3 +129,19 @@
     justify-content: center; /*左右中央揃え*/
     align-items: center;     /*上下中央揃え*/
 }
+
+.thumbnailDiv{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.nextQuestionButton{
+    margin-top: 10px;
+    margin-left: 80%;
+    color: #000000;
+    background-color: #FFFFFF;
+    border:none;
+    border-bottom: 1px solid #000000;
+}
+

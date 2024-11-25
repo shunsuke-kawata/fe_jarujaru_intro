@@ -17,7 +17,14 @@ const ExplanationWindow = ({
           {isCorrect ? "正解！！" : "残念。。"}
         </h3>
         <p className={styles.explanationTitle}>{questionData.title}</p>
+        <div className={styles.thumbnailDiv}>
+          <img
+            src={`https://img.youtube.com/vi/${questionData.id}/mqdefault.jpg`}
+            alt="サムネ"
+          />
+        </div>
         <input
+          className={styles.nextQuestionButton}
           type="button"
           value={"次の問題へ"}
           onClick={handleFunction}
