@@ -1,16 +1,20 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
+import styles from "./styles.module.css";
 const Top = () => {
   const router = useRouter();
   return (
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
-      <input
-        type="button"
-        value="プレイ"
-        onClick={() => router.push("/select")}
-      ></input>
+      <div className={styles.playButtonDiv}>
+        <input
+          className={styles.playButton}
+          type="button"
+          value="プレイ"
+          onClick={() => router.push("/select")}
+        />
+      </div>
     </>
   );
 };

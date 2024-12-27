@@ -13,7 +13,7 @@ const JARUJARU_TOWER_PLAYLISTS: VideoInfo[] = [
   },
   {
     id: "PLRdiaanKAFQlq6BMs519ix5km2nz49zMb",
-    title: "2億回記念!本気ネタ!",
+    title: "2億回記念！本気ネタ！",
   },
   {
     id: "PLRdiaanKAFQnFRkJiuhMVLAC-UdYjYk8k",

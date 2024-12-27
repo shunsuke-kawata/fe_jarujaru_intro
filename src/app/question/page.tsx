@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./styles.module.css";
 import Header from "@/components/header";
@@ -7,43 +7,12 @@ import { getQuestionAudio, getQuestionData } from "@/api/api";
 import { QuestionInfoResponse } from "@/types/apiResponseType";
 import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
-import YoutubeViewList from "@/components/youtubeViewList";
+import ResultDisplay from "@/components/resultDisPlay";
+import { checkUserAnswerTitle } from "@/utils/stringUtils";
 
 type audioStatusString = "fetching" | "waiting" | "started" | "finished";
-const ResultDisplay = ({
-  answerStatusArray,
-}: {
-  answerStatusArray: AnswerStatus[];
-}) => {
-  //filterして合っていた問題と間違っていた問題に選別
-  const correctAnswerArray: AnswerStatus[] = answerStatusArray.filter(
-    (value) => {
-      return value.isCorrect === true;
-    }
-  );
-  const incorrectAnswerArray: AnswerStatus[] = answerStatusArray.filter(
-    (value) => {
-      return value.isCorrect === false;
-    }
-  );
 
-  return (
-    <>
-      <div className={styles.youtubeViewListDiv}>
-        <YoutubeViewList
-          title={"間違えた奴ら"}
-          answerArray={incorrectAnswerArray}
-        />
-        <YoutubeViewList
-          title={"あってた奴ら"}
-          answerArray={correctAnswerArray}
-        />
-      </div>
-    </>
-  );
-};
-
-const Question = () => {
+const Question: React.FC = () => {
   const searchParams = useSearchParams();
   const questionNumberParam: string | null = searchParams.get("questionNumber");
   const playlistIdParam: string[] = searchParams.getAll("playlistId");
@@ -51,24 +20,23 @@ const Question = () => {
   const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const answerRef = useRef<HTMLInputElement>(null);
   const questionDataRef = useRef<QuestionInfoResponse | null>(null);
+
   const [audioStatus, setAudioStatus] = useState<audioStatusString>("fetching");
   const [questionIndex, setQuestionIndex] = useState<number>(1);
+  const [isOpenAssistive, setIsOpenAssistive] = useState<boolean>(false);
+  const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
 
   //オーディオが終了した時に
-  const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
   const isCorrectRef = useRef<boolean>(false);
-  const [isFinished, setIsFinished] = useState<boolean>(false);
   const answerStatusArrray = useRef<AnswerStatus[]>([]);
-  const [isOpenAssistive, setIsOpenAssistive] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
     //contextの初期化・生成
-    if (isFinished) {
-      return;
+    if (!isFinished) {
+      handleFetchData();
     }
-    handleFetchData();
-    console.log(answerStatusArrray);
     return () => {
       handleStop(); // コンポーネントがアンマウントされる際に音声を停止
     };
@@ -80,15 +48,16 @@ const Question = () => {
       audioSourceRef.current.disconnect(); // 音声を停止
     }
   };
-  const incrementIndex = () => setQuestionIndex((prevIndex) => prevIndex + 1);
 
+  //次の問題にいく関数
   const handleNextQuestion = () => {
     if (
       questionNumberParam !== null &&
       questionIndex < Number(questionNumberParam) &&
       isFinished === false
     ) {
-      incrementIndex();
+      //現在の問題のインデックスをインクリメント
+      setQuestionIndex((prevIndex) => prevIndex + 1);
       setAudioEnded(null);
       handleNavigation();
     } else {
@@ -97,9 +66,7 @@ const Question = () => {
     setIsOpenAssistive(false);
   };
 
-  const giveUpQuestion = () => {
-    handleNextQuestion();
-  };
+  //データをダウンロードする
   const handleFetchData = async () => {
     //contextファイルの更新
     console.log("downloadの開始");
@@ -128,6 +95,7 @@ const Question = () => {
     }
   };
 
+  //再生を開始する関数
   const handlePlay = () => {
     if (audioStatus !== "waiting") {
       return;
@@ -139,6 +107,7 @@ const Question = () => {
     }
   };
 
+  //オーディオを停止する関数
   const handleStop = () => {
     if (audioSourceRef.current && audioContextRef.current) {
       audioSourceRef.current.disconnect();
@@ -147,13 +116,7 @@ const Question = () => {
     }
   };
 
-  const checkAnswerIsCorrect = () => {
-    if (answerRef.current?.value === questionDataRef.current?.title) {
-      isCorrectRef.current = true;
-      handleStop();
-    }
-  };
-
+  //オーディオ再生が終了した時の関数
   const handleAudioEnded = () => {
     console.log("finished");
     setAudioStatus("finished");
@@ -168,6 +131,21 @@ const Question = () => {
       if (answerStatusArrray.current.length === questionIndex - 1) {
         answerStatusArrray.current.push(tmpAnswerStatus);
       }
+    }
+  };
+
+  //入力した回答が正しいかを判定する
+  const checkAnswerIsCorrect = () => {
+    if (
+      answerRef.current !== null &&
+      questionDataRef.current !== null &&
+      checkUserAnswerTitle(
+        answerRef.current?.value,
+        questionDataRef.current?.title
+      )
+    ) {
+      isCorrectRef.current = true;
+      handleStop();
     }
   };
 
