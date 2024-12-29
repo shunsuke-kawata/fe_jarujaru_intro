@@ -1,4 +1,4 @@
-FROM node:21.0.0
+FROM node:21.0.0-slim
 WORKDIR /tmp/work
 COPY ./package.json ./package-lock.json /tmp/work/
 

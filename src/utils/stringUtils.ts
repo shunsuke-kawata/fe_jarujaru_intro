@@ -16,6 +16,7 @@ const checkUserAnswerTitle = (
       ) // 全角英数字を半角に変換
       .replace(/[，、]/g, ",") // 全角・半角の読点を統一
       .replace(/[。．]/g, ".") // 全角・半角の句点を統一
+      .replace(/[・・]/g, "•") // 全角・半角の句点を統一
       .replace(/[「『]/g, "「") // 開きカッコを統一
       .replace(/[」』]/g, "」") // 閉じカッコを統一
       .replace(/[\u30a1-\u30f6]/g, (s) =>

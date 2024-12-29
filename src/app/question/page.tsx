@@ -12,7 +12,7 @@ import { checkUserAnswerTitle } from "@/utils/stringUtils";
 
 type audioStatusString = "fetching" | "waiting" | "started" | "finished";
 
-const Question: React.FC = () => {
+const QuestionPage: React.FC = () => {
   const searchParams = useSearchParams();
   const questionNumberParam: string | null = searchParams.get("questionNumber");
   const playlistIdParam: string[] = searchParams.getAll("playlistId");
@@ -73,7 +73,10 @@ const Question: React.FC = () => {
     audioContextRef.current = null;
     audioSourceRef.current = null;
     audioContextRef.current = new AudioContext();
-    if (!audioContextRef.current) return;
+    if (!audioContextRef.current) {
+      console.error("Failed to create AudioContext");
+      return;
+    }
 
     try {
       setAudioStatus("fetching");
@@ -87,7 +90,7 @@ const Question: React.FC = () => {
         audioSourceRef.current = audioContextRef.current!.createBufferSource();
         audioSourceRef.current.buffer = buffer;
         audioSourceRef.current.connect(audioContextRef.current!.destination);
-        audioSourceRef.current.onended = handleAudioEnded;
+        audioSourceRef.current.onended = () => handleAudioEnded();
         setAudioStatus("waiting");
       });
     } catch (error) {
@@ -97,7 +100,9 @@ const Question: React.FC = () => {
 
   //再生を開始する関数
   const handlePlay = () => {
+    console.log("play");
     if (audioStatus !== "waiting") {
+      console.log("not ready");
       return;
     }
     if (audioSourceRef.current && audioContextRef.current) {
@@ -109,6 +114,7 @@ const Question: React.FC = () => {
 
   //オーディオを停止する関数
   const handleStop = () => {
+    console.log("stop");
     if (audioSourceRef.current && audioContextRef.current) {
       audioSourceRef.current.disconnect();
       audioSourceRef.current = null;
@@ -159,12 +165,12 @@ const Question: React.FC = () => {
             <input
               className={styles.linkButtons}
               onClick={() => router.push("/select")}
-              value={"プレイリスト選択へ"}
+              defaultValue={"プレイリスト選択へ"}
             />
             <input
               className={styles.linkButtons}
               onClick={() => router.push("/top")}
-              value={"トップへ"}
+              defaultValue={"トップへ"}
             />
           </div>
         </>
@@ -255,4 +261,4 @@ const Question: React.FC = () => {
   );
 };
 
-export default Question;
+export default QuestionPage;

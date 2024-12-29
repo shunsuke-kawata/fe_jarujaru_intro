@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
 import styles from "./styles.module.css";
-const Top = () => {
+const TopPage: React.FC = () => {
   const router = useRouter();
   return (
     <>
@@ -18,4 +18,4 @@ const Top = () => {
     </>
   );
 };
-export default Top;
+export default TopPage;

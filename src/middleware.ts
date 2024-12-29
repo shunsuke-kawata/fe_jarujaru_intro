@@ -8,6 +8,10 @@ export function middleware(request: NextRequest) {
   //トップページを使用しない
   if (pathname === "/") {
     return NextResponse.redirect(new URL("/top", request.nextUrl));
+  } else if (pathname === "/question") {
+    if (!referer) {
+      return NextResponse.redirect(new URL("/select", request.nextUrl));
+    }
   }
 }
 

@@ -8,7 +8,7 @@ import Header from "@/components/header";
 import ErrorWindow from "@/components/errorWindow";
 import { useRouter } from "next/navigation";
 
-const Select = () => {
+const SelectPage: React.FC = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
   const [questionNumber, setQuestionNumber] = useState<number>(5);
   const [isShowError, setIsShowError] = useState(false);
@@ -136,4 +136,4 @@ const Select = () => {
     </>
   );
 };
-export default Select;
+export default SelectPage;
