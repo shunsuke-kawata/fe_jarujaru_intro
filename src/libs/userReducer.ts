@@ -1,14 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface LoginUserState {
-  userId: string;
-  username: string;
+  userId: string | null;
+  username: string | null;
 }
 
 //ユーザ情報の初期値
 const initialState: LoginUserState = {
-  userId: "",
-  username: "",
+  userId: null,
+  username: null,
 };
 
 const loginedUserSlice = createSlice({

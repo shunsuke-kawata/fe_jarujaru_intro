@@ -158,20 +158,6 @@ const executeLogin = async (username: string, password: string) => {
   }
 };
 
-const executeLogout = async (username: string) => {
-  let url: string = `${BACKEND_SERVER_URL}/auth/logout`;
-
-  try {
-    const response: AxiosResponse<JSON> = await axios.post(url, {
-      username,
-    });
-    return response;
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    throw error;
-  }
-};
-
 export {
   getQuestionData,
   getQuestionAudio,
@@ -185,5 +171,4 @@ export {
   postPlayData,
   deletePlayData,
   executeLogin,
-  executeLogout,
 };

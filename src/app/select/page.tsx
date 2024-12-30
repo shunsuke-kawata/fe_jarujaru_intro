@@ -1,12 +1,14 @@
 "use client";
 import styles from "./select.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { JARUJARU_TOWER_PLAYLISTS } from "../../../config";
 import { VideoInfo, AnswerStatus } from "@/types/configType";
 import React from "react";
 import Header from "@/components/header";
 import ErrorWindow from "@/components/errorWindow";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { selectUser } from "@/libs/store";
 
 const SelectPage: React.FC = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
@@ -14,6 +16,12 @@ const SelectPage: React.FC = () => {
   const [isShowError, setIsShowError] = useState(false);
 
   const router = useRouter();
+
+  const loginedUser = useSelector(selectUser);
+
+  useEffect(() => {
+    console.log(loginedUser);
+  }, [loginedUser]);
 
   const handleQuestionNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>

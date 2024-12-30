@@ -8,14 +8,12 @@ import { AppDispatch, selectUser } from "@/libs/store";
 import { LoginUserState, setLoginedUser } from "@/libs/userReducer";
 import { getCookie, setCookie } from "cookies-next";
 import React, { useState, useEffect } from "react";
+import { executeLogout } from "@/utils/userInfoUtil";
+import { get } from "http";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const loginedUser = useSelector(selectUser);
 
-  useEffect(() => {
-    console.log(loginedUser);
-  }, [loginedUser]);
   const formProps: UserFormProps = {
     fields: [
       { name: "username", type: "text", labelname: "ユーザー名" },
@@ -27,6 +25,9 @@ const LoginPage: React.FC = () => {
         // ログイン成功時にStore,Cookieにユーザー情報を保存する
         setCookie("userId", res.data.user_id);
         setCookie("username", res.data.username);
+
+        console.log(getCookie("userId"));
+        console.log(getCookie("username"));
 
         const tmpUser: LoginUserState = {
           userId: res.data.user_id,
@@ -44,6 +45,7 @@ const LoginPage: React.FC = () => {
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
       <UserForm fields={formProps.fields} onSubmit={formProps.onSubmit} />
+      <button onClick={executeLogout}>ログアウト</button>
     </>
   );
 };
