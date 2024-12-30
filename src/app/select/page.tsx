@@ -7,8 +7,6 @@ import React from "react";
 import Header from "@/components/header";
 import ErrorWindow from "@/components/errorWindow";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { selectUser } from "@/libs/store";
 
 const SelectPage: React.FC = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
@@ -16,12 +14,6 @@ const SelectPage: React.FC = () => {
   const [isShowError, setIsShowError] = useState(false);
 
   const router = useRouter();
-
-  const loginedUser = useSelector(selectUser);
-
-  useEffect(() => {
-    console.log(loginedUser);
-  }, [loginedUser]);
 
   const handleQuestionNumberChange = (
     event: React.ChangeEvent<HTMLInputElement>

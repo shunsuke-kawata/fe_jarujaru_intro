@@ -1,0 +1,41 @@
+.formDiv{
+    background-color: #eedcb3;
+    margin-top:30px;
+    width: 40%;
+    height:fit-content;
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:15px;
+}
+
+.formElementDiv{
+    font-size: 20px;
+}
+
+
+.formElementLabel{
+    display:block;
+    min-width:160px;
+}
+.formElementInput{
+    display:block;
+    font-size: 20px;
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formErrorDiv{
+    color: red;
+    font-size: 20px;
+    height:35px;
+}
+
+.formTitle{
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    line-height: 15px;
+    margin-bottom: 20px;
+}

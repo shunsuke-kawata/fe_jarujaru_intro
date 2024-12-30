@@ -1,51 +1,103 @@
 "use client";
 import { executeLogin } from "@/api/api";
 import Header from "@/components/header";
-import UserForm, { UserFormProps } from "@/components/userForm";
 import { loginParams } from "@/types/apiParamsType";
-import { useSelector, useDispatch } from "react-redux";
-import { AppDispatch, selectUser } from "@/libs/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/libs/store";
 import { LoginUserState, setLoginedUser } from "@/libs/userReducer";
-import { getCookie, setCookie } from "cookies-next";
-import React, { useState, useEffect } from "react";
+import { setCookie } from "cookies-next";
+import React from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import authStyles from "../auth.module.css";
 import { executeLogout } from "@/utils/userInfoUtil";
-import { get } from "http";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<loginParams>();
+  const router = useRouter();
 
-  const formProps: UserFormProps = {
-    fields: [
-      { name: "username", type: "text", labelname: "ユーザー名" },
-      { name: "password", type: "password", labelname: "パスワード" },
-    ],
-    onSubmit: async (data: loginParams) => {
-      const res = await executeLogin(data.username, data.password);
-      if (res.status === 200) {
-        // ログイン成功時にStore,Cookieにユーザー情報を保存する
-        setCookie("userId", res.data.user_id);
-        setCookie("username", res.data.username);
+  const onSubmit = async (data: loginParams) => {
+    const res = await executeLogin(data.username, data.password);
+    if (res.status === 200) {
+      // ログイン成功時にStore,Cookieにユーザー情報を保存する
+      setCookie("userId", res.data.user_id);
+      setCookie("username", res.data.username);
 
-        console.log(getCookie("userId"));
-        console.log(getCookie("username"));
-
-        const tmpUser: LoginUserState = {
-          userId: res.data.user_id,
-          username: res.data.username,
-        };
-        dispatch(setLoginedUser(tmpUser));
-        console.log(getCookie("username"));
-        return "ログインに成功しました";
-      } else {
-        return "ログインに失敗しました";
-      }
-    },
+      const tmpUser: LoginUserState = {
+        userId: res.data.user_id,
+        username: res.data.username,
+      };
+      dispatch(setLoginedUser(tmpUser));
+      console.log("ログイン成功");
+    } else {
+      console.log("ログイン失敗");
+    }
+    router.push("/select"); // ログイン成功後にリダイレクト
   };
+
   return (
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
-      <UserForm fields={formProps.fields} onSubmit={formProps.onSubmit} />
-      <button onClick={executeLogout}>ログアウト</button>
+      <div className={authStyles.formDiv}>
+        <label className={authStyles.formTitle}>ログイン</label>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className={authStyles.formElementDiv}>
+            <label className={authStyles.formElementLabel}>
+              ユーザー名
+              <input
+                className={authStyles.formElementInput}
+                type="text"
+                {...register("username", {
+                  required: { value: true, message: "ユーザー名は必須です" },
+                  maxLength: {
+                    value: 10,
+                    message: "10文字以下で入力してください",
+                  },
+                  minLength: { value: 4, message: "4文字以上入力してください" },
+                })}
+              />
+            </label>
+            <div className={authStyles.formErrorDiv}>
+              {errors.username && <p>{errors.username.message}</p>}
+            </div>
+          </div>
+          <div className={authStyles.formElementDiv}>
+            <label className={authStyles.formElementLabel}>
+              パスワード
+              <input
+                className={authStyles.formElementInput}
+                type="password"
+                {...register("password", {
+                  required: { value: true, message: "パスワードは必須です" },
+                  maxLength: {
+                    value: 10,
+                    message: "10文字以下で入力してください",
+                  },
+                  minLength: { value: 4, message: "4文字以上入力してください" },
+                })}
+              />
+            </label>
+            <div className={authStyles.formErrorDiv}>
+              {errors.password && <p>{errors.password.message}</p>}
+            </div>
+          </div>
+
+          <button type="submit">ログイン</button>
+        </form>
+        <div>
+          <button type="button" onClick={() => router.push("/top")}>
+            トップへ
+          </button>
+          <button type="button" onClick={() => router.push("/auth/signup")}>
+            新規登録する
+          </button>
+        </div>
+      </div>
     </>
   );
 };

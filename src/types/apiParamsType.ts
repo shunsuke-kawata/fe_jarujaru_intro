@@ -1,6 +1,7 @@
 interface signupParams {
   username: string;
   password: string;
+  confirmPassword: string;
 }
 
 interface loginParams {

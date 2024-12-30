@@ -7,8 +7,8 @@
     font-size: 36px;
     padding-top: 12px;
     text-align: center;
+    position: relative;
 }
-
 
 .errorMainDiv{
     position: fixed;
@@ -152,4 +152,23 @@
     margin-right: auto;
     justify-content: space-between;
     gap: 40px; 
+}
+
+.userInfoDiv{
+    position: absolute;
+    top:0;
+    right:30px;
+    width:200px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height:60px;
+
+}
+.userInfoDiv label{
+    padding: 5px;
+    display: block;
+    text-align: left;
+    border-radius: 5px;
+    background-color: #FFFFFF;
 }

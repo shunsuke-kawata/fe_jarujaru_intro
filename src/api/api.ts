@@ -84,8 +84,8 @@ const updateUser = async (id: string, username: string, password: string) => {
 
   try {
     const response: AxiosResponse<JSON> = await axios.put(url, {
-      username,
-      password,
+      username: username,
+      password: password,
     });
     return response;
   } catch (error) {
@@ -147,8 +147,8 @@ const executeLogin = async (username: string, password: string) => {
 
   try {
     const response: AxiosResponse<LoginResponseData> = await axios.post(url, {
-      username,
-      password,
+      username: username,
+      password: password,
     });
     console.log(response);
     return response;
