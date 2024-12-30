@@ -1,4 +1,4 @@
-import { QuestionInfoResponse } from "@/types/apiResponseType";
+import { QuestionInfoResponseData } from "@/types/apiResponseType";
 import styles from "./styles.module.css";
 
 const ExplanationWindow = ({
@@ -7,7 +7,7 @@ const ExplanationWindow = ({
   handleFunction,
 }: {
   isCorrect: boolean;
-  questionData: QuestionInfoResponse;
+  questionData: QuestionInfoResponseData;
   handleFunction: any;
 }) => {
   return (

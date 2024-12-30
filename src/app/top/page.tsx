@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
-import styles from "./styles.module.css";
+import styles from "./top.module.css";
 const TopPage: React.FC = () => {
   const router = useRouter();
   return (

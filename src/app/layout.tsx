@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
-// const inter = Inter({ subsets: ["latin"] });
+import StoreProvider from "@/libs/storeProvider";
+import { AppDispatch } from "@/libs/store";
+import { useDispatch } from "react-redux";
 
 export const metadata: Metadata = {
   title: "ジャルジャルでイントロクイズする奴",
-  description: "ジャルジャルでイントロクイズする奴s",
+  description: "ジャルジャルでイントロクイズする奴",
 };
 
 export default function RootLayout({
@@ -15,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }

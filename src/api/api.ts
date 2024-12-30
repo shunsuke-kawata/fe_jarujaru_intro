@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { BACKEND_SERVER_URL, JARUJARU_TOWER_PLAYLISTS } from "../../config";
-
+import { LoginResponseData } from "../types/apiResponseType";
 const getQuestionData = async (params: string[]) => {
   let queryParameters: string = params.join("&playlist_id=");
   let url: string = `${BACKEND_SERVER_URL}/question/download/?playlist_id=${queryParameters}`;
   try {
     const response: AxiosResponse<JSON> = await axios.get(url);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching playlist items:", error);
     throw error;
@@ -57,6 +57,7 @@ const getUserByUserName = async (username: string) => {
     return response;
   } catch (error) {
     console.error("Error fetching user:", error);
+    console.log();
     throw error;
   }
 };
@@ -145,10 +146,11 @@ const executeLogin = async (username: string, password: string) => {
   let url: string = `${BACKEND_SERVER_URL}/auth/login`;
 
   try {
-    const response: AxiosResponse<JSON> = await axios.post(url, {
+    const response: AxiosResponse<LoginResponseData> = await axios.post(url, {
       username,
       password,
     });
+    console.log(response);
     return response;
   } catch (error) {
     console.error("Error fetching user:", error);

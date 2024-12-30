@@ -1,5 +1,5 @@
 "use client";
-import styles from "./styles.module.css";
+import styles from "./select.module.css";
 import { useRef, useState } from "react";
 import { JARUJARU_TOWER_PLAYLISTS } from "../../../config";
 import { VideoInfo, AnswerStatus } from "@/types/configType";

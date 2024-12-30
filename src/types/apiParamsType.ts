@@ -3,4 +3,9 @@ interface signupParams {
   password: string;
 }
 
-export type { signupParams };
+interface loginParams {
+  username: string;
+  password: string;
+}
+
+export type { signupParams, loginParams };

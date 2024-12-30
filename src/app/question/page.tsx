@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./styles.module.css";
+import styles from "./question.module.css";
 import Header from "@/components/header";
 import { getQuestionAudio, getQuestionData } from "@/api/api";
-import { QuestionInfoResponse } from "@/types/apiResponseType";
+import { QuestionInfoResponseData } from "@/types/apiResponseType";
 import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
 import ResultDisplay from "@/components/resultDisPlay";
@@ -19,7 +19,7 @@ const QuestionPage: React.FC = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const audioSourceRef = useRef<AudioBufferSourceNode | null>(null);
   const answerRef = useRef<HTMLInputElement>(null);
-  const questionDataRef = useRef<QuestionInfoResponse | null>(null);
+  const questionDataRef = useRef<QuestionInfoResponseData | null>(null);
 
   const [audioStatus, setAudioStatus] = useState<audioStatusString>("fetching");
   const [questionIndex, setQuestionIndex] = useState<number>(1);

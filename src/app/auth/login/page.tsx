@@ -1,13 +1,49 @@
+"use client";
+import { executeLogin } from "@/api/api";
 import Header from "@/components/header";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import UserForm, { UserFormProps } from "@/components/userForm";
+import { loginParams } from "@/types/apiParamsType";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, selectUser } from "@/libs/store";
+import { LoginUserState, setLoginedUser } from "@/libs/userReducer";
+import { getCookie, setCookie } from "cookies-next";
+import React, { useState, useEffect } from "react";
 
 const LoginPage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const loginedUser = useSelector(selectUser);
+
+  useEffect(() => {
+    console.log(loginedUser);
+  }, [loginedUser]);
+  const formProps: UserFormProps = {
+    fields: [
+      { name: "username", type: "text", labelname: "ユーザー名" },
+      { name: "password", type: "password", labelname: "パスワード" },
+    ],
+    onSubmit: async (data: loginParams) => {
+      const res = await executeLogin(data.username, data.password);
+      if (res.status === 200) {
+        // ログイン成功時にStore,Cookieにユーザー情報を保存する
+        setCookie("userId", res.data.user_id);
+        setCookie("username", res.data.username);
+
+        const tmpUser: LoginUserState = {
+          userId: res.data.user_id,
+          username: res.data.username,
+        };
+        dispatch(setLoginedUser(tmpUser));
+        console.log(getCookie("username"));
+        return "ログインに成功しました";
+      } else {
+        return "ログインに失敗しました";
+      }
+    },
+  };
   return (
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
-      <div></div>
+      <UserForm fields={formProps.fields} onSubmit={formProps.onSubmit} />
     </>
   );
 };
