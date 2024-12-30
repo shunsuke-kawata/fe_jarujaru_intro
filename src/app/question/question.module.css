@@ -1,0 +1,164 @@
+.secondTitle{
+    text-align: center;
+    width:60%;
+    font-size: 36px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.startButtonDiv{
+    position: absolute;
+    width: 84px;
+    height: 84px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50px;
+    left: 0;
+    right: 0;
+    bottom :120px;
+    margin:  auto;
+}
+.isFetching{
+    background-color: #a9a9a9;
+}
+.isWaiting{
+    background-color: #34d01c;
+}
+
+.isStarted{
+    background-color: #ff0000;
+}
+.phoneButton{
+    margin: auto;
+    width:60%;
+    height:60%;
+}
+
+.phoneDisplayDiv{
+    position: relative;
+    width:340px;
+    height: 620px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #080c44;
+    border-radius: 25px;
+    border: 2px solid #fff;
+}
+
+.phoneSentence{
+    padding-top: 120px;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.answerTitleInput{
+    position: absolute;
+    top:85%;
+    left:-50%;
+    width:200%;
+    height: 40px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.nextQuestionButton{
+    width:fit-content;
+    position:absolute;
+    right:-80px;
+    bottom:-10px;
+    
+}
+
+
+.assistiveMenu {
+    position: absolute;
+    background-color: #302f2f;
+    color: #FFFFFF;
+    border-radius: 12px;
+    width: 0px; 
+    height: 0px; 
+    opacity: 0; 
+    padding: 0px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    top: 180px;
+    right: 10px;
+    overflow: hidden; 
+    transition: all 0.2s ease-in-out;
+}
+
+.assistiveMenu.open {
+    width: 160px; /* 開いたときの幅 */
+    height: 160px; /* 開いたときの高さ */
+    opacity: 1; /* 開いたときは見える */
+    padding: 3px; /* 開いたときのパディング */
+}
+
+.assistiveMenu div {
+    text-align: center;
+    height: 24px;
+    transition: color 0.2s ease-in-out;
+}
+
+.assistiveMenu div:hover {
+    color: #aaa;
+}
+
+.assistiveTouch {
+    width: 60px;
+    height: 60px;
+    background-color: #302f2f;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 180px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.assistiveTouch .innerCircle {
+    width: 35px;
+    height: 35px;
+    background-color: transparent;
+    border: 4px solid #aaa;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.assistiveTouch .innerCircle .core {
+    width: 32px;
+    height: 32px;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.linkButtonsDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFFFF;
+    padding: 0 120px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 36%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+}
+
+.linkButtons{
+    font-size: 20px;
+    color: #000000;
+    background-color: #FFFFFF;
+    border:none;
+    border-bottom: 1px solid #000000;
+}

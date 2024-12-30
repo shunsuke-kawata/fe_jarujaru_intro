@@ -1,0 +1,155 @@
+.globalHeader{
+    background-color: #84ddea;
+    width:100%;
+    height:60px;
+    margin: 0;
+    padding: 0;
+    font-size: 36px;
+    padding-top: 12px;
+    text-align: center;
+}
+
+
+.errorMainDiv{
+    position: fixed;
+    width: 360px;
+    height: 200px;
+    inset:0;
+    margin: auto;
+    background-color:#fff;
+    border-radius: 35px;
+    border: #000 solid 3px;
+    background-color: #fff;
+}
+
+.explanationMainDiv{
+    position: fixed;
+    width: 540px;
+    height: 360px;
+    inset:0;
+    margin: auto;
+    background-color:#fff;
+    border-radius: 35px;
+    border: #000 solid 3px;
+    background-color: #fff;
+}
+.innerMainDiv{
+    position: relative;
+    height: 80%;
+    margin: 5%;
+    padding: 0 2%;
+    justify-content: center;
+    word-break: break-all;
+    border-radius: 35px;
+    background-color: #fff;
+}
+
+.batsu{
+    position: absolute;
+    top:-35px;
+    right:-35px;
+    font-size: 140%;
+    font-weight: bold;
+    border: 3px solid #000;
+    background-color: #EA3639;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.batsu:hover{
+    background-color: #EA3639;
+    color: #fff;
+}
+
+.eroorMessage{
+    display: block;
+    text-align: center;
+}
+
+.isCorrectMessage{
+    text-align: center;
+}
+
+.explanationTitle{
+    text-align: center;
+    word-break: break-all;
+}
+
+.flexViewlist{
+    display: flex;
+}
+
+.youtubeViewList{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    color:#FFFFFF;
+    padding: 15px 60px 15px 60px;
+    margin-top: 16px;
+    background-color: #000000;
+    border-radius: 15px;
+}
+
+.title{
+    font-size: 20px;
+    text-align: center;
+}
+
+.controls{
+    margin-top: 20px;
+    width:80%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttons{
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    border:none;
+    font-size: 16px;
+    background-color: #eedcb3;
+}
+.buttons:hover {
+    background-color: #f0d38f;
+}
+
+.currentLabel{
+    font-size: 16px;
+    display: flex;
+    justify-content: center; /*左右中央揃え*/
+    align-items: center;     /*上下中央揃え*/
+}
+
+.thumbnailDiv{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+.nextQuestionButton{
+    margin-top: 10px;
+    margin-left: 80%;
+    color: #000000;
+    background-color: #FFFFFF;
+    border:none;
+    border-bottom: 1px solid #000000;
+}
+
+.youtubeViewListDiv {
+    display: flex;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-between;
+    gap: 40px; 
+}

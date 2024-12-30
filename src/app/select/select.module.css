@@ -1,0 +1,73 @@
+.titleButton, .selectedTitleButton {
+    width: 260px;
+    line-height: 60px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    font-size: 16px;
+}
+
+.titleButton {
+    background-color: #eedcb3;
+    color: #000000;
+}
+
+.titleButton:hover {
+    background-color: #f0d38f;
+}
+
+.selectedTitleButton {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.notRightButton{
+    margin-right: 20px;
+}
+
+.selectTitleList{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subtitles{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.questionNumberInput{
+    font-size: 28px;
+    padding-right: 20px;
+    border:none;
+    text-align: left;
+}
+
+.optionSelectDiv{
+    background-color: #FFFFFF;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 48%;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    border-radius: 15px;
+}
+.toIntroButton{
+    position: absolute;
+    top:25%;
+    right: 15%;
+    color: #000000;
+    background-color: #FFFFFF;
+    border:none;
+    border-bottom: 1px solid #000000;
+}
+
+.numberOfQuestion{
+    position: absolute;
+    top:25%;
+    left: 10%;
+}
