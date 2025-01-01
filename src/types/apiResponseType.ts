@@ -9,3 +9,7 @@ export interface LoginResponseData {
   user_id: string;
   username: string;
 }
+
+export interface UserInfoPageResponseData {
+  username: string;
+}

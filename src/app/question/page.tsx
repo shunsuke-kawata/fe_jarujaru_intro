@@ -9,6 +9,7 @@ import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
 import ResultDisplay from "@/components/resultDisPlay";
 import { checkUserAnswerTitle } from "@/utils/stringUtils";
+import CommonButton from "@/components/commons/commonButton";
 
 type audioStatusString = "fetching" | "waiting" | "started" | "finished";
 
@@ -162,7 +163,19 @@ const QuestionPage: React.FC = () => {
         <>
           <ResultDisplay answerStatusArray={answerStatusArrray.current} />
           <div className={styles.linkButtonsDiv}>
-            <input
+            <CommonButton
+              text="トップへ"
+              width={120}
+              height={48}
+              onClick={() => router.push("/top")}
+            />
+            <CommonButton
+              text="プレイリスト選択へ"
+              width={186}
+              height={48}
+              onClick={() => router.push("/select")}
+            />
+            {/* <input
               className={styles.linkButtons}
               onClick={() => router.push("/select")}
               defaultValue={"プレイリスト選択へ"}
@@ -171,7 +184,7 @@ const QuestionPage: React.FC = () => {
               className={styles.linkButtons}
               onClick={() => router.push("/top")}
               defaultValue={"トップへ"}
-            />
+            /> */}
           </div>
         </>
       ) : (

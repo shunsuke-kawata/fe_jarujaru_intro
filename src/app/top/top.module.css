@@ -1,21 +1,6 @@
 .playButtonDiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #FFFFFF;
-    padding: 0 60px;
-    margin-top: 40px;
-    margin-bottom: 20px;
-    width: fit-content;
-    height: 100px;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 15px;
-
-}
-.playButton{
-    font-size: 60px;
-    color: #000000;
-    background-color: #FFFFFF;
-    border:none;
+    width: fit-content;
+    margin-top:30px;
 }

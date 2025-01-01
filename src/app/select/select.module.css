@@ -71,3 +71,10 @@
     top:25%;
     left: 10%;
 }
+
+.toQuizButton{
+    position: absolute;
+    top:25%;
+    right: 10%;
+    border:none;
+}

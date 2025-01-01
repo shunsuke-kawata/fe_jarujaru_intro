@@ -5,6 +5,7 @@ import { createUser } from "@/api/api";
 import { signupParams } from "@/types/apiParamsType";
 import { useForm } from "react-hook-form";
 import authStyles from "../auth.module.css";
+import CommonButton from "@/components/commons/commonButton";
 
 const SignupPage: React.FC = () => {
   const {
@@ -101,13 +102,23 @@ const SignupPage: React.FC = () => {
 
           <button type="submit">新規登録</button>
         </form>
-        <div>
-          <button type="button" onClick={() => router.push("/top")}>
-            トップへ
-          </button>
-          <button type="button" onClick={() => router.push("/auth/login")}>
-            ログインする
-          </button>
+        <div className={authStyles.otherButtonDiv}>
+          <CommonButton
+            text="トップへ"
+            width={120}
+            height={48}
+            onClick={() => router.push("/top")} // ボタンがクリックされた時の処理
+            color="#000000"
+            backgroundColor="#FFFFFF"
+          />
+          <CommonButton
+            text="ログインする"
+            width={120}
+            height={48}
+            onClick={() => router.push("/auth/login")} // ボタンがクリックされた時の処理
+            color="#000000"
+            backgroundColor="#FFFFFF"
+          />
         </div>
       </div>
     </>

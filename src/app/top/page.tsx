@@ -2,17 +2,20 @@
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
 import styles from "./top.module.css";
+import CommonButton from "@/components/commons/commonButton";
 const TopPage: React.FC = () => {
   const router = useRouter();
   return (
     <>
       <Header headerTitle={"ジャルジャルでイントロクイズする奴"} />
       <div className={styles.playButtonDiv}>
-        <input
-          className={styles.playButton}
-          type="button"
-          value="プレイ"
-          onClick={() => router.push("/select")}
+        <CommonButton
+          text="プレイ"
+          width={300}
+          height={120}
+          onClick={() => router.push("/select")} // ボタンがクリックされた時の処理
+          color="#000000"
+          backgroundColor="#FFFFFF"
         />
       </div>
     </>

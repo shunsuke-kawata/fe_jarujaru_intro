@@ -7,6 +7,7 @@ import React from "react";
 import Header from "@/components/header";
 import ErrorWindow from "@/components/errorWindow";
 import { useRouter } from "next/navigation";
+import CommonButton from "@/components/commons/commonButton";
 
 const SelectPage: React.FC = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
@@ -117,13 +118,14 @@ const SelectPage: React.FC = () => {
           />
           <label className={styles.questionNumberInput}></label>
         </div>
-
-        <input
-          type="button"
-          value={"クイズへ"}
-          className={`${styles.questionNumberInput} ${styles.toIntroButton}`}
-          onClick={() => handleToQuizButton()}
-        />
+        <div className={styles.toQuizButton}>
+          <CommonButton
+            text="クイズへ"
+            width={120}
+            height={48}
+            onClick={handleToQuizButton} // ボタンがクリックされた時の処理
+          />
+        </div>
       </div>
       {isShowError ? (
         <ErrorWindow

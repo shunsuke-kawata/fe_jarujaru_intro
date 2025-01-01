@@ -1,8 +1,10 @@
 import { AppDispatch, selectUser } from "@/libs/store";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import styles from "./styles.module.css";
+import styles from "./components.module.css";
 import { useRouter } from "next/navigation";
+import CommonButton from "./commons/commonButton";
+import { log } from "console";
 
 const UserInfo = () => {
   const router = useRouter();
@@ -22,11 +24,22 @@ const UserInfo = () => {
   return (
     <>
       <div className={styles.userInfoDiv}>
-        <label onClick={handleUserInfoClick}>
-          {loginedUser.username
-            ? `ログイン中：${loginedUser.username}`
-            : "未ログイン"}
-        </label>
+        <CommonButton
+          text={
+            loginedUser.username
+              ? `ログイン中：${loginedUser.username}`
+              : `未ログイン`
+          }
+          width={
+            loginedUser.username
+              ? 120 + loginedUser.username.length * 10
+              : 40 + "未ログイン".length * 10
+          }
+          height={40}
+          onClick={handleUserInfoClick}
+          backgroundColor="#FFFFFF"
+          color="#000000"
+        />
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import styles from "./styles.module.css";
+import styles from "./components.module.css";
 import UserInfo from "./userInfo";
 
 const Header = ({ headerTitle }: { headerTitle: string }) => {

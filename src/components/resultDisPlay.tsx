@@ -1,6 +1,6 @@
 import { AnswerStatus } from "@/types/configType";
 import YoutubeViewList from "./youtubeViewList";
-import styles from "./styles.module.css";
+import styles from "./components.module.css";
 
 //全ての問題が終了したときに表示する画面コンポーネント
 const ResultDisplay = ({

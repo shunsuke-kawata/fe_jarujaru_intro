@@ -1,5 +1,5 @@
 import { QuestionInfoResponseData } from "@/types/apiResponseType";
-import styles from "./styles.module.css";
+import styles from "./components.module.css";
 
 const ExplanationWindow = ({
   isCorrect,

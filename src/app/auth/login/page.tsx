@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import authStyles from "../auth.module.css";
 import { executeLogout } from "@/utils/userInfoUtil";
+import CommonButton from "@/components/commons/commonButton";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -89,13 +90,23 @@ const LoginPage: React.FC = () => {
 
           <button type="submit">ログイン</button>
         </form>
-        <div>
-          <button type="button" onClick={() => router.push("/top")}>
-            トップへ
-          </button>
-          <button type="button" onClick={() => router.push("/auth/signup")}>
-            新規登録する
-          </button>
+        <div className={authStyles.otherButtonDiv}>
+          <CommonButton
+            text="トップへ"
+            width={120}
+            height={48}
+            onClick={() => router.push("/top")} // ボタンがクリックされた時の処理
+            color="#000000"
+            backgroundColor="#FFFFFF"
+          />
+          <CommonButton
+            text="新規登録する"
+            width={120}
+            height={48}
+            onClick={() => router.push("/auth/signup")} // ボタンがクリックされた時の処理
+            color="#000000"
+            backgroundColor="#FFFFFF"
+          />
         </div>
       </div>
     </>

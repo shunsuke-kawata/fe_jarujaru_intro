@@ -39,3 +39,9 @@
     line-height: 15px;
     margin-bottom: 20px;
 }
+
+.otherButtonDiv{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
