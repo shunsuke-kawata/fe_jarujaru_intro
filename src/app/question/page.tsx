@@ -175,16 +175,6 @@ const QuestionPage: React.FC = () => {
               height={48}
               onClick={() => router.push("/select")}
             />
-            {/* <input
-              className={styles.linkButtons}
-              onClick={() => router.push("/select")}
-              defaultValue={"プレイリスト選択へ"}
-            />
-            <input
-              className={styles.linkButtons}
-              onClick={() => router.push("/top")}
-              defaultValue={"トップへ"}
-            /> */}
           </div>
         </>
       ) : (

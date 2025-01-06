@@ -6,6 +6,7 @@ import { signupParams } from "@/types/apiParamsType";
 import { useForm } from "react-hook-form";
 import authStyles from "../auth.module.css";
 import CommonButton from "@/components/commons/commonButton";
+import CommonFormButton from "@/components/commons/commonFormButton";
 
 const SignupPage: React.FC = () => {
   const {
@@ -100,7 +101,15 @@ const SignupPage: React.FC = () => {
             </div>
           </div>
 
-          <button type="submit">新規登録</button>
+          <div className={authStyles.mainButtonDiv}>
+            <CommonFormButton
+              text="新規登録"
+              width={240}
+              height={48}
+              color="#FFFFFF"
+              type="submit"
+            />
+          </div>
         </form>
         <div className={authStyles.otherButtonDiv}>
           <CommonButton

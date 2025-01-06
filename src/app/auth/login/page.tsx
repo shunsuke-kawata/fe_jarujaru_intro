@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import authStyles from "../auth.module.css";
 import { executeLogout } from "@/utils/userInfoUtil";
 import CommonButton from "@/components/commons/commonButton";
+import CommonFormButton from "@/components/commons/commonFormButton";
 
 const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -87,8 +88,15 @@ const LoginPage: React.FC = () => {
               {errors.password && <p>{errors.password.message}</p>}
             </div>
           </div>
-
-          <button type="submit">ログイン</button>
+          <div className={authStyles.mainButtonDiv}>
+            <CommonFormButton
+              text="ログイン"
+              width={240}
+              height={48}
+              color="#FFFFFF"
+              type="submit"
+            />
+          </div>
         </form>
         <div className={authStyles.otherButtonDiv}>
           <CommonButton

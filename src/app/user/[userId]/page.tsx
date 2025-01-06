@@ -9,6 +9,7 @@ import styles from "./user.module.css";
 import { useState } from "react";
 import CommonButton from "@/components/commons/commonButton";
 import ButtonProps from "@/components/commons/commonButton";
+import { deleteUser } from "@/api/api";
 const UserInfoPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { userId } = useParams();
@@ -25,6 +26,19 @@ const UserInfoPage = () => {
     };
     dispatch(setLoginedUser(logoutUser));
     router.push("/auth/login");
+  };
+
+  const handleDeleteUser = () => {
+    if (!userId) return;
+    if (typeof userId === "string") {
+      deleteUser(userId);
+    }
+    const initUser: LoginUserState = {
+      userId: null,
+      username: null,
+    };
+    dispatch(setLoginedUser(initUser));
+    router.push("/top");
   };
 
   return (
@@ -58,6 +72,15 @@ const UserInfoPage = () => {
           width={120}
           height={48}
           onClick={handleLogout} // ボタンがクリックされた時の処理
+          backgroundColor="#FF0000"
+        />
+      </div>
+      <div className={styles.buttonDiv}>
+        <CommonButton
+          text="ユーザー削除"
+          width={240}
+          height={48}
+          onClick={handleDeleteUser}
           backgroundColor="#FF0000"
         />
       </div>

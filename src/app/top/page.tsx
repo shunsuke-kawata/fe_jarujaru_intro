@@ -14,8 +14,6 @@ const TopPage: React.FC = () => {
           width={300}
           height={120}
           onClick={() => router.push("/select")} // ボタンがクリックされた時の処理
-          color="#000000"
-          backgroundColor="#FFFFFF"
         />
       </div>
     </>
