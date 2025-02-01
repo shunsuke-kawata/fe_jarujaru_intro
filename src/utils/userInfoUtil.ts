@@ -1,3 +1,4 @@
+import { PlayData } from "@/types/apiResponseType";
 import { deleteCookie, getCookie } from "cookies-next";
 
 const executeLogout = () => {
@@ -7,4 +8,21 @@ const executeLogout = () => {
   deleteCookie("username");
 };
 
-export { executeLogout };
+const countTandF = (playData: PlayData[]) => {
+  let trueCount: number = 0;
+  let falseCount: number = 0;
+
+  for (const item of playData) {
+    for (const dataItem of item.data) {
+      if (dataItem.isCorrect) {
+        trueCount++;
+      } else {
+        falseCount++;
+      }
+    }
+  }
+
+  return { trueCount, falseCount };
+};
+
+export { executeLogout, countTandF };

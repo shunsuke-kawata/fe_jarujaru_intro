@@ -3,7 +3,7 @@ import "./globals.css";
 import StoreProvider from "@/libs/storeProvider";
 import { AppDispatch } from "@/libs/store";
 import { useDispatch } from "react-redux";
-
+import Header from "@/components/header";
 export const metadata: Metadata = {
   title: "ジャルジャルでイントロクイズする奴",
   description: "ジャルジャルでイントロクイズする奴",

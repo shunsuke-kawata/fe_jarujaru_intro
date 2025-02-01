@@ -11,7 +11,7 @@ import CommonButton from "@/components/commons/commonButton";
 
 const SelectPage: React.FC = () => {
   const [selectedPlaylistId, setSelectedPlaylistId] = useState<string[]>([]);
-  const [questionNumber, setQuestionNumber] = useState<number>(5);
+  const [questionNumber, setQuestionNumber] = useState<number>(2);
   const [isShowError, setIsShowError] = useState(false);
 
   const router = useRouter();

@@ -172,3 +172,24 @@
     border-radius: 5px;
     background-color: #FFFFFF;
 }
+
+.containerElement{
+    background-color: #FFFFFF;
+    min-width: 200px;
+    height:140px;
+    padding: 10px;
+    border-radius: 20px;
+    border: #000000 solid 2px;
+}
+
+.dataTitle{
+    font-size: 20px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.dataScore{
+    font-size: 60px;
+    text-align: center;
+    font-weight: 900;
+}

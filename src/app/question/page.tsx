@@ -3,13 +3,15 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./question.module.css";
 import Header from "@/components/header";
-import { getQuestionAudio, getQuestionData } from "@/api/api";
+import { getQuestionAudio, getQuestionData, postPlayData } from "@/api/api";
 import { QuestionInfoResponseData } from "@/types/apiResponseType";
 import { AnswerStatus } from "@/types/configType";
 import ExplanationWindow from "@/components/explanationWindow";
 import ResultDisplay from "@/components/resultDisPlay";
 import { checkUserAnswerTitle } from "@/utils/stringUtils";
 import CommonButton from "@/components/commons/commonButton";
+import { selectUser } from "@/libs/store";
+import { useSelector } from "react-redux";
 
 type audioStatusString = "fetching" | "waiting" | "started" | "finished";
 
@@ -28,6 +30,8 @@ const QuestionPage: React.FC = () => {
   const [audioEnded, setAudioEnded] = useState<boolean | null>(null);
   const [isFinished, setIsFinished] = useState<boolean>(false);
 
+  const loginedUser = useSelector(selectUser);
+
   //オーディオが終了した時に
   const isCorrectRef = useRef<boolean>(false);
   const answerStatusArrray = useRef<AnswerStatus[]>([]);
@@ -42,6 +46,17 @@ const QuestionPage: React.FC = () => {
       handleStop(); // コンポーネントがアンマウントされる際に音声を停止
     };
   }, [questionIndex]);
+
+  useEffect(() => {
+    if (isFinished && loginedUser.userId) {
+      console.log(answerStatusArrray.current);
+      const tmpPlayData = {
+        play_datum: answerStatusArrray.current,
+      };
+      console.log(tmpPlayData);
+      postPlayData(loginedUser.userId, tmpPlayData);
+    }
+  }, [isFinished]);
 
   // 画面遷移時に処理を追加
   const handleNavigation = () => {
@@ -69,6 +84,7 @@ const QuestionPage: React.FC = () => {
 
   //データをダウンロードする
   const handleFetchData = async () => {
+    if (isFinished) return;
     //contextファイルの更新
     console.log("downloadの開始");
     audioContextRef.current = null;
@@ -101,6 +117,7 @@ const QuestionPage: React.FC = () => {
 
   //再生を開始する関数
   const handlePlay = () => {
+    if (isFinished) return;
     console.log("play");
     if (audioStatus !== "waiting") {
       console.log("not ready");

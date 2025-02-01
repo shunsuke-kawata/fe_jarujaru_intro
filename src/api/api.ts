@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { BACKEND_SERVER_URL, JARUJARU_TOWER_PLAYLISTS } from "../../config";
-import { LoginResponseData } from "../types/apiResponseType";
+import {
+  LoginResponseData,
+  PlayDataResponseData,
+} from "../types/apiResponseType";
 const getQuestionData = async (params: string[]) => {
   let queryParameters: string = params.join("&playlist_id=");
   let url: string = `${BACKEND_SERVER_URL}/question/download/?playlist_id=${queryParameters}`;
@@ -30,7 +33,7 @@ const getUsers = async () => {
 
   try {
     const response: AxiosResponse<JSON> = await axios.get(url);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
     throw error;
@@ -42,7 +45,7 @@ const getUserById = async (id: string) => {
 
   try {
     const response: AxiosResponse<JSON> = await axios.get(url);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching user:", error);
     throw error;
@@ -54,7 +57,7 @@ const getUserByUserName = async (username: string) => {
 
   try {
     const response: AxiosResponse<JSON> = await axios.get(url);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching user:", error);
     console.log();
@@ -71,7 +74,6 @@ const createUser = async (username: string, password: string) => {
       username: username,
       password: password,
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -106,12 +108,12 @@ const deleteUser = async (id: string) => {
   }
 };
 
-const getPlayData = async (id: string) => {
+const getPlayData = async (id: string): Promise<PlayDataResponseData> => {
   let url: string = `${BACKEND_SERVER_URL}/users/playdata/${id}`;
 
   try {
-    const response: AxiosResponse<JSON> = await axios.get(url);
-    return response;
+    const response = await axios.get<PlayDataResponseData>(url);
+    return response.data;
   } catch (error) {
     console.error("Error fetching user:", error);
     throw error;
@@ -123,7 +125,7 @@ const postPlayData = async (id: string, playDatum: any) => {
 
   try {
     const response: AxiosResponse<JSON> = await axios.post(url, playDatum);
-    return response;
+    return response.data;
   } catch (error) {
     console.error("Error fetching user:", error);
     throw error;
@@ -150,7 +152,6 @@ const executeLogin = async (username: string, password: string) => {
       username: username,
       password: password,
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Error fetching user:", error);

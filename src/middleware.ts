@@ -18,6 +18,7 @@ export function middleware(request: NextRequest) {
 
   console.log("middleware", pathname, referer, userId, username);
 
+  //ユーザ認証用の変数
   const isAuthenticated = userId && username;
 
   if (pathname === "/") {
@@ -33,7 +34,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
   }
 
-  if (pathname === "/select" && !isAuthenticated) {
+  //認証が非必要なページ
+  if (
+    (pathname === "/select" || pathname.startsWith("/user")) &&
+    !isAuthenticated
+  ) {
     return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
   }
 

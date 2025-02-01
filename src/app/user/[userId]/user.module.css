@@ -1,10 +1,39 @@
 .userInfoDiv{
+    text-align: center;
     background-color: #eedcb3;
+    width:50%;
+    height: fit-content;
+    margin-top:30px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    padding:10px;
 }
 
 .buttonDiv{
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    margin-top: 30px;
     width: fit-content;
+    gap:40px;
+}
+
+.userInfoMainDiv{
+    border-radius: 20px;
+    padding:10px;
+    margin:10px;
+    height:80%;
+}
+
+.usernameP{
+    font-size: 40px;
+    font-weight: bold;
+    min-height: 60px;
+}
+
+.flexContainer{
+    display: flex;
+    justify-content: space-around;
 }

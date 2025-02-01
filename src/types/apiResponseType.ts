@@ -13,3 +13,17 @@ export interface LoginResponseData {
 export interface UserInfoPageResponseData {
   username: string;
 }
+
+export interface QuestionData {
+  isCorrect: boolean;
+  title: string;
+  id: string;
+  questionIndex: number;
+}
+
+export interface PlayData {
+  index: number;
+  data: QuestionData[];
+}
+
+export type PlayDataResponseData = PlayData[];
