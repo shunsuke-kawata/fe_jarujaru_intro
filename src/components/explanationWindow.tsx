@@ -1,5 +1,6 @@
 import { QuestionInfoResponseData } from "@/types/apiResponseType";
 import styles from "./components.module.css";
+import CommonButton from "./commons/commonButton";
 
 const ExplanationWindow = ({
   isCorrect,
@@ -23,12 +24,20 @@ const ExplanationWindow = ({
             alt="サムネ"
           />
         </div>
-        <input
+        <div className={styles.nextQuestionButton}>
+          <CommonButton
+            text="次の問題へ"
+            width={80}
+            height={30}
+            onClick={handleFunction} // ボタンがクリックされた時の処理
+          />
+        </div>
+        {/* <input
           className={styles.nextQuestionButton}
           type="button"
           value={"次の問題へ"}
           onClick={handleFunction}
-        ></input>
+        ></input> */}
       </div>
     </div>
   );

@@ -1,11 +1,13 @@
 .titleButton, .selectedTitleButton {
     width: 260px;
-    line-height: 60px;
-    text-align: center;
-    display: inline-block;
     margin-bottom: 20px;
     border-radius: 15px;
     font-size: 16px;
+    height: 60px;
+    font-weight: 900;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
 }
 
 .titleButton {
@@ -22,14 +24,16 @@
     color: #FFFFFF;
 }
 
-.notRightButton{
-    margin-right: 20px;
-}
-
 .selectTitleList{
-    width: fit-content;
+    width:60%;
     margin-left: auto;
     margin-right: auto;
+}
+
+.titleButtonRow{
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
 }
 
 .subtitles{

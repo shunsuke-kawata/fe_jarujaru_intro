@@ -11,8 +11,8 @@ const TopPage: React.FC = () => {
       <div className={styles.playButtonDiv}>
         <CommonButton
           text="プレイ"
-          width={300}
-          height={120}
+          width={360}
+          height={140}
           onClick={() => router.push("/select")} // ボタンがクリックされた時の処理
         />
       </div>

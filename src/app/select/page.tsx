@@ -50,12 +50,10 @@ const SelectPage: React.FC = () => {
   };
 
   const TitleButton = ({
-    index,
     id,
     title,
     selected,
   }: {
-    index: number;
     id: string;
     title: string;
     selected: boolean;
@@ -65,7 +63,7 @@ const SelectPage: React.FC = () => {
         <div
           className={`${
             selected ? styles.selectedTitleButton : styles.titleButton
-          } ${index % 3 !== 2 ? styles.notRightButton : ""}`}
+          }`}
           onClick={() => updateSelectPlaylistId(id)}
         >
           {title}
@@ -79,18 +77,24 @@ const SelectPage: React.FC = () => {
   }: {
     videoInfoList: VideoInfo[];
   }) => {
+    const splitArray = (arr: VideoInfo[], size: number) =>
+      arr.flatMap((_, i, a) => (i % size ? [] : [a.slice(i, i + size)]));
+
+    const splitVideoInfoList = splitArray(videoInfoList, 3);
+
     return (
       <div className={styles.selectTitleList}>
-        {videoInfoList.map((videoInfo, index) => (
-          <React.Fragment key={index}>
-            <TitleButton
-              index={index}
-              id={videoInfo.id}
-              title={videoInfo.title}
-              selected={selectedPlaylistId.includes(videoInfo.id)}
-            />
-            {index % 3 === 2 && index !== videoInfoList.length - 1 && <br />}
-          </React.Fragment>
+        {splitVideoInfoList.map((videoInfoRowList, index) => (
+          <div className={styles.titleButtonRow} key={index}>
+            {videoInfoRowList.map((videoInfo) => (
+              <TitleButton
+                key={videoInfo.id}
+                id={videoInfo.id}
+                title={videoInfo.title}
+                selected={selectedPlaylistId.includes(videoInfo.id)}
+              />
+            ))}
+          </div>
         ))}
       </div>
     );
