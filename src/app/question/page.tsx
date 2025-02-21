@@ -102,7 +102,10 @@ const QuestionPage: React.FC = () => {
 
       setAudioEnded(null);
       isCorrectRef.current = false;
-      const audioData = await getQuestionAudio(questionData.id);
+      const audioData = await getQuestionAudio(
+        questionData.id,
+        questionData.tmp_id
+      );
       audioContextRef.current.decodeAudioData(audioData, (buffer) => {
         audioSourceRef.current = audioContextRef.current!.createBufferSource();
         audioSourceRef.current.buffer = buffer;

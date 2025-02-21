@@ -16,8 +16,9 @@ const getQuestionData = async (params: string[]) => {
   }
 };
 
-const getQuestionAudio = async (id: string) => {
-  let url: string = `${BACKEND_SERVER_URL}/question/fetch/${id}`;
+const getQuestionAudio = async (id: string, tmpId: string) => {
+  console.log(tmpId);
+  let url: string = `${BACKEND_SERVER_URL}/question/fetch/${id}?tmp_id=${tmpId}`;
 
   try {
     const response: Response = await fetch(url);

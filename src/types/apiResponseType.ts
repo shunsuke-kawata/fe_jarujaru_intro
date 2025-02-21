@@ -1,7 +1,8 @@
 export interface QuestionInfoResponseData {
   id: string;
   title: string;
-  originalFilePath: string;
+  tmp_id: string;
+  original_file_path: string;
 }
 
 export interface LoginResponseData {
